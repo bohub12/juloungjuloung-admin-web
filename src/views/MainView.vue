@@ -1,19 +1,10 @@
 <template>
   <HeaderComponent />
+  <ThemeSwitchComponent />
   <div class="container-fluid">
     <div class="row">
-      <div
-        class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"
-      >
-        <div
-          class="offcanvas-md offcanvas-end bg-body-tertiary"
-          tabindex="-1"
-          id="sidebarMenu"
-          aria-labelledby="sidebarMenuLabel"
-        >
-          <SidebarComponent />
-        </div>
-      </div>
+      <SidebarComponent />
+      <DashboardComponent />
     </div>
   </div>
 </template>
@@ -22,12 +13,16 @@
 import { defineComponent } from "vue";
 import HeaderComponent from "@/components/HeaderComponent.vue"; // @ is an alias to /src
 import SidebarComponent from "@/components/SidebarComponent.vue";
+import DashboardComponent from "@/components/DashboardComponent.vue";
+import ThemeSwitchComponent from "@/components/ThemeSwitchComponent.vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
     HeaderComponent,
     SidebarComponent,
+    DashboardComponent,
+    ThemeSwitchComponent,
   },
 });
 </script>
