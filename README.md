@@ -1,24 +1,46 @@
 # juloungjuloung-admin-web
 
-## Project setup
+## Tech Stack
+
+- Typescript
+- Vue 3 (vue, vue router)
+- Vuex
+- bootstrap, bootstrap-icon
+
+## Project Structure
+
 ```
-npm install
+src
+├── App.vue
+├── assets
+├── apis
+├── components
+│   ├── HeaderComponent.vue
+│   ├── SidebarComponent.vue
+│   ├── DashboardComponent.vue
+│   ├── ThemeSwitchComponent.vue
+│   └── etc
+├── main.ts
+├── router
+│   └── index.ts
+├── store
+│   ├── index.ts
+│   ├── theme.ts
+│   └── etc
+└── views
+    └── MainView.vue
+    └── etc
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Script
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- build : `npm run build`
+- run : `npm run serve`
+- lint check : `npm run lint`
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Reference
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [Vue 3 - Official Documentation](https://vuejs.org/guide/introduction.html#introduction)
+- [Vuex - Official Documentation](https://vuex.vuejs.org/)
+- [Bootstrap - Official Documentation](https://getbootstrap.kr/docs/5.3/getting-started/introduction/)
+- [Bootstrap Examples](https://getbootstrap.kr/docs/5.3/examples/)
