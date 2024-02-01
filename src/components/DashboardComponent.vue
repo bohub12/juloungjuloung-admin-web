@@ -1,16 +1,14 @@
 <template>
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-    >
-      <h2>대시보드</h2>
-    </div>
-    <div>준비 중</div>
+  <div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  >
+    <h2>대시보드</h2>
+  </div>
+  <div>준비 중</div>
 
-    <h2 v-for="dashBoardItem in dashBoardItems" :key="dashBoardItem">
-      {{ dashBoardItem }}
-    </h2>
-  </main>
+  <h2 v-for="dashBoardItem in dashBoardItems" :key="dashBoardItem">
+    {{ dashBoardItem }}
+  </h2>
 </template>
 
 <script lang="ts">

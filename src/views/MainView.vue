@@ -5,7 +5,9 @@
     <div class="container-fluid">
       <div class="row">
         <SidebarComponent />
-        <component :is="currentMenuComponent" />
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <component :is="currentMenuComponent" />
+        </main>
       </div>
     </div>
   </div>
