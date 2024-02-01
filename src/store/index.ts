@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import theme from "./theme";
+import menu from "./menu";
 
 export default createStore({
   state: {},
@@ -7,6 +8,7 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    theme: theme,
+    theme,
+    menu,
   },
 });
