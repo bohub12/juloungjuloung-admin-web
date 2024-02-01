@@ -3,7 +3,7 @@
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
     >
-      <h2>상품</h2>
+      <h2>주문</h2>
     </div>
     <div>준비 중</div>
   </main>
@@ -13,7 +13,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "ProductComponent",
+  name: "OrderComponent",
 });
 </script>
 
