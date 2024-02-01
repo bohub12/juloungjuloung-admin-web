@@ -12,44 +12,26 @@
         class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto"
       >
         <ul class="nav flex-column">
-          <li class="nav-item">
+          <li v-for="menu in menus" :key="menu.value" class="nav-item">
             <a
-              class="nav-link d-flex align-items-center gap-2 active"
-              aria-current="page"
+              :class="[
+                'nav-link',
+                'd-flex',
+                'align-items-center',
+                'gap-2',
+                { active: currentMenu === menu.value },
+              ]"
+              @click="setCurrentMenu(menu.value)"
               href="#"
             >
-              <i class="bi bi-house-fill"></i>
-              대시보드
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
-              <i class="bi bi-file-earmark"></i>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
-              <i class="bi bi-cart"></i>
-              상품
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
-              <i class="bi bi-people"></i>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
-              <i class="bi bi-graph-up"></i>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
-              <i class="bi bi-puzzle"></i>
-              Integrations
+              <i
+                :class="[
+                  currentMenu === menu.value
+                    ? menu.selectedBootstrapIconClass
+                    : menu.unSelectedBootstrapIconClass,
+                ]"
+              ></i>
+              {{ menu.name }}
             </a>
           </li>
         </ul>
@@ -110,17 +92,22 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "SidebarComponent",
-  setup() {
-    const categoryList = [
-      { name: "회원", icon: "" },
-      { name: "상품", icon: "" },
-    ];
-    return { categoryList };
+  computed: {
+    ...mapGetters({
+      menus: "menu/menus",
+      currentMenu: "menu/currentMenu",
+    }),
+  },
+  methods: {
+    setCurrentMenu(newMenu) {
+      this.$store.commit("menu/setMenu", newMenu);
+    },
   },
 });
 </script>
