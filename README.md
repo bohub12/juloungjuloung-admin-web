@@ -46,7 +46,7 @@ src
 /* package.json */
 {
   "scripts": {
-    "oas-generate": "openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g javascript -o ./src/apis"
+    "oas-generate": "openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-axios -o ./src/apis"
   }
 }
 
