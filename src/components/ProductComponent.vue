@@ -33,10 +33,12 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="#">All</a></li>
           <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">목걸이</a></li>
-          <li><a class="dropdown-item" href="#">반지</a></li>
-          <li><a class="dropdown-item" href="#">귀걸이</a></li>
-          <li><a class="dropdown-item" href="#">팔찌</a></li>
+          <li
+            v-for="productCategory in productCategories"
+            :key="productCategory.value"
+          >
+            <a class="dropdown-item" href="#">{{ productCategory.name }}</a>
+          </li>
         </ul>
       </span>
     </div>
@@ -119,9 +121,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "ProductComponent",
+  computed: {
+    ...mapGetters({
+      productCategories: "productCategory/productCategories",
+      currentProductCategory: "productCategory/currentProductCategory",
+    }),
+  },
 });
 </script>
 
