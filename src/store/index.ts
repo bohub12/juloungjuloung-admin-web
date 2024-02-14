@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import theme from "./theme";
 import menu from "./menu";
+import productCategory from "./product/productCategory";
 
 export default createStore({
   state: {},
@@ -10,5 +11,6 @@ export default createStore({
   modules: {
     theme,
     menu,
+    productCategory,
   },
 });
