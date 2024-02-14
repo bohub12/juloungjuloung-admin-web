@@ -28,16 +28,25 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          All
+          {{ getCurrentProductCategoryName() }}
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">All</a></li>
+          <li>
+            <a class="dropdown-item" href="#" @click="setProductCategory(null)"
+              >All</a
+            >
+          </li>
           <li><hr class="dropdown-divider" /></li>
           <li
             v-for="productCategory in productCategories"
             :key="productCategory.value"
           >
-            <a class="dropdown-item" href="#">{{ productCategory.name }}</a>
+            <a
+              class="dropdown-item"
+              href="#"
+              @click="setProductCategory(productCategory.value)"
+              >{{ productCategory.name }}</a
+            >
           </li>
         </ul>
       </span>
@@ -119,7 +128,7 @@
   </nav>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 
@@ -130,6 +139,20 @@ export default defineComponent({
       productCategories: "productCategory/productCategories",
       currentProductCategory: "productCategory/currentProductCategory",
     }),
+  },
+  methods: {
+    getCurrentProductCategoryName() {
+      const foundCategory = this.productCategories.find(
+        (category) => category.value === this.currentProductCategory
+      );
+      return foundCategory ? foundCategory.name : "All";
+    },
+    setProductCategory(newProductCategory) {
+      this.$store.commit(
+        "productCategory/setProductCategory",
+        newProductCategory
+      );
+    },
   },
 });
 </script>

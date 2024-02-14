@@ -32,6 +32,7 @@ export default {
   },
   getters: {
     productCategories: (state: ProductCategoryState) => state.productCategories,
-    currentTheme: (state: ProductCategoryState) => state.currentProductCategory,
+    currentProductCategory: (state: ProductCategoryState) =>
+      state.currentProductCategory,
   },
 };
