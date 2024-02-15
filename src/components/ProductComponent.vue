@@ -72,15 +72,7 @@
   <div class="row border product-item">
     <div class="col">상품1</div>
     <div class="vr no-padding"></div>
-    <div class="col">
-      <span class="badge bg-danger product-activation-badge text-danger"
-        ><i
-          class="bi bi-exclamation-triangle-fill"
-          style="padding-right: 0.25rem"
-        ></i
-        >미노출</span
-      >
-    </div>
+    <DisplayOffComponent />
     <div class="vr no-padding"></div>
     <div class="col">전자제품</div>
     <div class="vr no-padding"></div>
@@ -92,12 +84,7 @@
   <div class="row border product-item">
     <div class="col">상품2</div>
     <div class="vr no-padding"></div>
-    <div class="col">
-      <span class="badge bg-success product-activation-badge text-success"
-        ><i class="bi bi-check-circle-fill" style="padding-right: 0.25rem"></i
-        >노출중</span
-      >
-    </div>
+    <DisplayOnComponent />
     <div class="vr no-padding"></div>
     <div class="col">의류</div>
     <div class="vr no-padding"></div>
@@ -116,12 +103,7 @@
   >
     <div class="col">{{ product.name }}</div>
     <div class="vr no-padding"></div>
-    <div class="col">
-      <span class="badge bg-success product-activation-badge text-success"
-        ><i class="bi bi-check-circle-fill" style="padding-right: 0.25rem"></i
-        >노출중</span
-      >
-    </div>
+    <DisplayOnComponent />
     <div class="vr no-padding"></div>
     <div class="col">{{ product.productType }}</div>
     <div class="vr no-padding"></div>
@@ -159,6 +141,8 @@
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import { DefaultApiFactory } from "../apis";
+import DisplayOffComponent from "@/components/product/DisplayOffComponent.vue";
+import DisplayOnComponent from "@/components/product/DisplayOnComponent.vue";
 
 const defaultApi = DefaultApiFactory();
 
@@ -209,6 +193,10 @@ export default defineComponent({
       }
     },
   },
+  components: {
+    DisplayOffComponent,
+    DisplayOnComponent,
+  },
 });
 </script>
 
@@ -235,9 +223,6 @@ export default defineComponent({
   margin-right: 0rem;
   margin-left: 0rem;
   border-radius: 0.375rem;
-}
-.product-activation-badge {
-  --bs-bg-opacity: 0.3;
 }
 .no-padding {
   padding-left: 0;
