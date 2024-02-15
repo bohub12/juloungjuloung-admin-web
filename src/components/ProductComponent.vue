@@ -32,7 +32,10 @@
         </button>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item" href="#" @click="setProductCategory(null)"
+            <a
+              class="dropdown-item"
+              href="#"
+              @click="setProductCategory('BASE')"
               >All</a
             >
           </li>
