@@ -106,6 +106,30 @@
     <div class="col">₩50,000</div>
   </div>
 
+  <div v-if="!products">Loading....</div>
+
+  <div
+    v-else
+    v-for="product in products"
+    :key="product.id"
+    class="row border product-item"
+  >
+    <div class="col">{{ product.name }}</div>
+    <div class="vr no-padding"></div>
+    <div class="col">
+      <span class="badge bg-success product-activation-badge text-success"
+        ><i class="bi bi-check-circle-fill" style="padding-right: 0.25rem"></i
+        >노출중</span
+      >
+    </div>
+    <div class="vr no-padding"></div>
+    <div class="col">{{ product.productType }}</div>
+    <div class="vr no-padding"></div>
+    <div class="col">{{ product.productCode }}</div>
+    <div class="vr no-padding"></div>
+    <div class="col">{{ product.price }}</div>
+  </div>
+
   <nav aria-label="페이지 네비게이션">
     <ul class="pagination justify-content-center mt-4">
       <li class="page-item disabled">
@@ -134,9 +158,22 @@
 <script>
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
+import { DefaultApiFactory } from "../apis";
+
+const defaultApi = DefaultApiFactory();
 
 export default defineComponent({
   name: "ProductComponent",
+  data() {
+    return {
+      products: null,
+      page: 0,
+      size: 10,
+    };
+  },
+  mounted() {
+    this.fetchProducts(this.page, this.size);
+  },
   computed: {
     ...mapGetters({
       productCategories: "productCategory/productCategories",
@@ -150,17 +187,31 @@ export default defineComponent({
       );
       return foundCategory ? foundCategory.name : "All";
     },
+
     setProductCategory(newProductCategory) {
       this.$store.commit(
         "productCategory/setProductCategory",
         newProductCategory
       );
     },
+
+    async fetchProducts(page, size) {
+      try {
+        const response = await defaultApi.readProducts(
+          this.currentProductCategory,
+          page,
+          size
+        );
+        this.products = response.data.data;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        this.products = [];
+      }
+    },
   },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .product-item-header {
   --bs-bg-opacity: 1;
