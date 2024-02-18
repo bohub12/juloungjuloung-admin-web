@@ -145,6 +145,7 @@ export default defineComponent({
     };
   },
   mounted() {
+    this.$store.commit("menu/setMenu", "product");
     this.fetchProducts(this.currentPage, this.size);
   },
   computed: {

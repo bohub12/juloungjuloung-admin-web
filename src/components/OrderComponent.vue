@@ -7,11 +7,14 @@
   <div>준비 중</div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "OrderComponent",
+  mounted() {
+    this.$store.commit("menu/setMenu", "order");
+  },
 });
 </script>
 

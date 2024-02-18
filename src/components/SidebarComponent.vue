@@ -12,7 +12,12 @@
         class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto"
       >
         <ul class="nav flex-column">
-          <li v-for="menu in menus" :key="menu.value" class="nav-item">
+          <router-link
+            v-for="menu in menus"
+            :key="menu.value"
+            class="nav-item"
+            :to="menu.value"
+          >
             <a
               :class="[
                 'nav-link',
@@ -33,7 +38,7 @@
               ></i>
               {{ menu.name }}
             </a>
-          </li>
+          </router-link>
         </ul>
 
         <h6
