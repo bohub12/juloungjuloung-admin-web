@@ -16,7 +16,7 @@
             v-for="menu in menus"
             :key="menu.value"
             class="nav-item text-decoration-none"
-            :to="menu.value"
+            :to="{ name: menu.value }"
           >
             <a
               :class="[
