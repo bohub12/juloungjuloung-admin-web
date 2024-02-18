@@ -11,7 +11,7 @@
   </h2>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -19,6 +19,9 @@ export default defineComponent({
   setup() {
     const dashBoardItems = ["오늘 방문 수", "이번 달 방문 수"];
     return { dashBoardItems };
+  },
+  mounted() {
+    this.$store.commit("menu/setMenu", "dashboard");
   },
 });
 </script>

@@ -6,7 +6,8 @@
       <div class="row">
         <SidebarComponent />
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <component :is="currentMenuComponent" />
+          <!-- <component :is="currentMenuComponent" /> -->
+          <router-view></router-view>
         </main>
       </div>
     </div>
@@ -29,9 +30,6 @@ export default defineComponent({
     HeaderComponent,
     SidebarComponent,
     ThemeSwitchComponent,
-    DashboardComponent,
-    ProductComponent,
-    OrderComponent,
   },
   setup() {
     const store = useStore();
