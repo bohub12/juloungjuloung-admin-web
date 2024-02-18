@@ -32,7 +32,10 @@
         </button>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item" href="#" @click="setProductCategory(null)"
+            <a
+              class="dropdown-item"
+              href="#"
+              @click="setProductCategory('BASE')"
               >All</a
             >
           </li>
@@ -65,64 +68,58 @@
     <div class="col">가격</div>
   </div>
 
-  <!-- 예시 상품 데이터 -->
-  <div class="row border product-item">
-    <div class="col">상품1</div>
-    <div class="vr no-padding"></div>
-    <div class="col">
-      <span class="badge bg-danger product-activation-badge text-danger"
-        ><i
-          class="bi bi-exclamation-triangle-fill"
-          style="padding-right: 0.25rem"
-        ></i
-        >미노출</span
-      >
-    </div>
-    <div class="vr no-padding"></div>
-    <div class="col">전자제품</div>
-    <div class="vr no-padding"></div>
-    <div class="col">P12345</div>
-    <div class="vr no-padding"></div>
-    <div class="col">₩1,000,000</div>
-  </div>
+  <div v-if="!products">Loading....</div>
 
-  <div class="row border product-item">
-    <div class="col">상품2</div>
+  <div
+    v-else
+    v-for="product in products"
+    :key="product.id"
+    class="row border product-item"
+  >
+    <div class="col">{{ product.name }}</div>
     <div class="vr no-padding"></div>
-    <div class="col">
-      <span class="badge bg-success product-activation-badge text-success"
-        ><i class="bi bi-check-circle-fill" style="padding-right: 0.25rem"></i
-        >노출중</span
-      >
-    </div>
+    <template v-if="product.isDisplay === true">
+      <DisplayOnComponent />
+    </template>
+    <template v-else>
+      <DisplayOffComponent />
+    </template>
     <div class="vr no-padding"></div>
-    <div class="col">의류</div>
+    <div class="col">{{ product.productType }}</div>
     <div class="vr no-padding"></div>
-    <div class="col">C98765</div>
+    <div class="col">{{ product.productCode }}</div>
     <div class="vr no-padding"></div>
-    <div class="col">₩50,000</div>
+    <div class="col">{{ product.price }}</div>
   </div>
 
   <nav aria-label="페이지 네비게이션">
     <ul class="pagination justify-content-center mt-4">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+      <li class="page-item" :class="{ disabled: currentPage === 1 }">
+        <a
+          class="page-link"
+          href="#"
+          @click="prevPage"
+          tabindex="-1"
+          aria-disabled="true"
           >이전</a
         >
       </li>
-      <li class="page-item active" aria-current="page">
-        <a class="page-link" href="#"
-          >1 <span class="visually-hidden">(현재)</span></a
-        >
+
+      <li
+        v-for="pageNumber in totalPageCount"
+        :key="pageNumber"
+        class="page-item"
+        :class="{ active: currentPage === pageNumber }"
+      >
+        <a class="page-link" href="#" @click="goToPage(pageNumber)">{{
+          pageNumber
+        }}</a>
       </li>
-      <li class="page-item">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">다음</a>
+      <li
+        class="page-item"
+        :class="{ disabled: currentPage === totalPageCount }"
+      >
+        <a class="page-link" href="#" @click="nextPage">다음</a>
       </li>
     </ul>
   </nav>
@@ -131,9 +128,25 @@
 <script>
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
+import { DefaultApiFactory } from "../apis";
+import DisplayOffComponent from "@/components/product/DisplayOffComponent.vue";
+import DisplayOnComponent from "@/components/product/DisplayOnComponent.vue";
+
+const defaultApi = DefaultApiFactory();
 
 export default defineComponent({
   name: "ProductComponent",
+  data() {
+    return {
+      products: null,
+      currentPage: 1,
+      size: 10,
+      totalPageCount: 1,
+    };
+  },
+  mounted() {
+    this.fetchProducts(this.currentPage, this.size);
+  },
   computed: {
     ...mapGetters({
       productCategories: "productCategory/productCategories",
@@ -147,17 +160,57 @@ export default defineComponent({
       );
       return foundCategory ? foundCategory.name : "All";
     },
+
     setProductCategory(newProductCategory) {
       this.$store.commit(
         "productCategory/setProductCategory",
         newProductCategory
       );
+      this.currentPage = 1;
+      this.fetchProducts(this.currentPage, this.size);
     },
+
+    goToPage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.fetchProducts(this.currentPage, this.size);
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+      this.fetchProducts(this.currentPage, this.size);
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPageCount) {
+        this.currentPage++;
+      }
+      this.fetchProducts(this.currentPage, this.size);
+    },
+
+    async fetchProducts(page, size) {
+      try {
+        const response = await defaultApi.readProducts(
+          this.currentProductCategory,
+          page - 1,
+          size
+        );
+        this.products = response.data.data;
+        this.totalPageCount = response.data.pageResponse.totalPageCount;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        this.products = [];
+        this.currentPage = 1;
+        this.totalPageCount = 1;
+      }
+    },
+  },
+  components: {
+    DisplayOffComponent,
+    DisplayOnComponent,
   },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .product-item-header {
   --bs-bg-opacity: 1;
@@ -181,9 +234,6 @@ export default defineComponent({
   margin-right: 0rem;
   margin-left: 0rem;
   border-radius: 0.375rem;
-}
-.product-activation-badge {
-  --bs-bg-opacity: 0.3;
 }
 .no-padding {
   padding-left: 0;

@@ -17,7 +17,7 @@ export default {
       { name: "귀걸이", value: "EARRING" },
       { name: "팔찌", value: "BRACELET" },
     ],
-    currentProductCategory: null,
+    currentProductCategory: "BASE",
   },
   mutations: {
     setProductCategory(
