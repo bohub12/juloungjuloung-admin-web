@@ -15,7 +15,7 @@
           <router-link
             v-for="menu in menus"
             :key="menu.value"
-            class="nav-item"
+            class="nav-item text-decoration-none"
             :to="menu.value"
           >
             <a
