@@ -166,6 +166,8 @@ export default defineComponent({
         "productCategory/setProductCategory",
         newProductCategory
       );
+      this.currentPage = 1;
+      this.fetchProducts(this.currentPage, this.size);
     },
 
     goToPage(pageNumber) {
