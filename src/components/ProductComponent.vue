@@ -75,6 +75,7 @@
     v-for="product in products"
     :key="product.id"
     class="row border product-item"
+    @click="goToProductDetails(product.id)"
   >
     <div class="col">{{ product.name }}</div>
     <div class="vr no-padding"></div>
@@ -169,6 +170,10 @@ export default defineComponent({
       );
       this.currentPage = 1;
       this.fetchProducts(this.currentPage, this.size);
+    },
+
+    goToProductDetails(productId) {
+      this.$router.push({ name: "productDetail", params: { id: productId } });
     },
 
     goToPage(pageNumber) {

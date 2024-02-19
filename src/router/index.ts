@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import MainView from "../views/MainView.vue";
 import DashboardComponent from "@/components/DashboardComponent.vue";
 import ProductComponent from "@/components/ProductComponent.vue";
+import ProductDetailComponent from "@/components/product/ProductDetailComponent.vue";
 import OrderComponent from "@/components/OrderComponent.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -20,6 +21,12 @@ const routes: Array<RouteRecordRaw> = [
         path: "/product",
         name: "product",
         component: ProductComponent,
+      },
+      {
+        path: "/product/:id",
+        name: "productDetail",
+        component: ProductDetailComponent,
+        props: true,
       },
       {
         path: "/order",
