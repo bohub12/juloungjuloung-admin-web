@@ -147,7 +147,7 @@ export default defineComponent({
   },
   mounted() {
     this.$store.commit("menu/setMenu", "product");
-    this.fetchProducts(this.currentPage, this.size);
+    this.getProductsFromServer(this.currentPage, this.size);
   },
   computed: {
     ...mapGetters({
@@ -169,7 +169,7 @@ export default defineComponent({
         newProductCategory
       );
       this.currentPage = 1;
-      this.fetchProducts(this.currentPage, this.size);
+      this.getProductsFromServer(this.currentPage, this.size);
     },
 
     goToProductDetails(productId) {
@@ -178,22 +178,22 @@ export default defineComponent({
 
     goToPage(pageNumber) {
       this.currentPage = pageNumber;
-      this.fetchProducts(this.currentPage, this.size);
+      this.getProductsFromServer(this.currentPage, this.size);
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
       }
-      this.fetchProducts(this.currentPage, this.size);
+      this.getProductsFromServer(this.currentPage, this.size);
     },
     nextPage() {
       if (this.currentPage < this.totalPageCount) {
         this.currentPage++;
       }
-      this.fetchProducts(this.currentPage, this.size);
+      this.getProductsFromServer(this.currentPage, this.size);
     },
 
-    async fetchProducts(page, size) {
+    async getProductsFromServer(page, size) {
       try {
         const response = await defaultApi.readProducts(
           this.currentProductCategory,
