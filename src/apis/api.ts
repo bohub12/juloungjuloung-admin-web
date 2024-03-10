@@ -274,64 +274,6 @@ export interface ApiResponseLong {
 /**
  * 
  * @export
- * @interface ChangePrimaryProductImageRequest
- */
-export interface ChangePrimaryProductImageRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof ChangePrimaryProductImageRequest
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ChangePrimaryProductImageRequest
-     */
-    'primaryProductImageId': number;
-}
-/**
- * 
- * @export
- * @interface DeleteProductColorRequest
- */
-export interface DeleteProductColorRequest {
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof DeleteProductColorRequest
-     */
-    'productColorIds': Array<number>;
-}
-/**
- * 
- * @export
- * @interface DeleteProductImageRequest
- */
-export interface DeleteProductImageRequest {
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof DeleteProductImageRequest
-     */
-    'productImageIds': Array<number>;
-}
-/**
- * 
- * @export
- * @interface DeleteProductMaterialRequest
- */
-export interface DeleteProductMaterialRequest {
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof DeleteProductMaterialRequest
-     */
-    'productMaterialIds': Array<number>;
-}
-/**
- * 
- * @export
  * @interface GetPreSignedUrlResponse
  */
 export interface GetPreSignedUrlResponse {
@@ -442,13 +384,13 @@ export interface ProductImageResponse {
      * @type {boolean}
      * @memberof ProductImageResponse
      */
-    'isPrimary': boolean;
+    'isThumbnail': boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ProductImageResponse
      */
-    'primary'?: boolean;
+    'thumbnail'?: boolean;
 }
 /**
  * 
@@ -487,8 +429,7 @@ export const ProductMaterialResponseMaterialEnum = {
     K14: 'K14',
     K18: 'K18',
     K22: 'K22',
-    K24: 'K24',
-    WhiteGold: 'WHITE_GOLD'
+    K24: 'K24'
 } as const;
 
 export type ProductMaterialResponseMaterialEnum = typeof ProductMaterialResponseMaterialEnum[keyof typeof ProductMaterialResponseMaterialEnum];
@@ -613,141 +554,6 @@ export interface SaveNecklaceAdditionalRequest {
 /**
  * 
  * @export
- * @interface SaveProductColorInternalRequest
- */
-export interface SaveProductColorInternalRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof SaveProductColorInternalRequest
-     */
-    'color': SaveProductColorInternalRequestColorEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveProductColorInternalRequest
-     */
-    'additionalPrice': number;
-}
-
-export const SaveProductColorInternalRequestColorEnum = {
-    Gold: 'GOLD',
-    RoseGold: 'ROSE_GOLD',
-    WhiteGold: 'WHITE_GOLD'
-} as const;
-
-export type SaveProductColorInternalRequestColorEnum = typeof SaveProductColorInternalRequestColorEnum[keyof typeof SaveProductColorInternalRequestColorEnum];
-
-/**
- * 
- * @export
- * @interface SaveProductColorRequest
- */
-export interface SaveProductColorRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveProductColorRequest
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {Array<SaveProductColorInternalRequest>}
-     * @memberof SaveProductColorRequest
-     */
-    'saveProductColorInternalRequests': Array<SaveProductColorInternalRequest>;
-}
-/**
- * 
- * @export
- * @interface SaveProductImageInternalRequest
- */
-export interface SaveProductImageInternalRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof SaveProductImageInternalRequest
-     */
-    'imageUrl': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SaveProductImageInternalRequest
-     */
-    'isPrimary': boolean;
-}
-/**
- * 
- * @export
- * @interface SaveProductImageRequest
- */
-export interface SaveProductImageRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveProductImageRequest
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {Array<SaveProductImageInternalRequest>}
-     * @memberof SaveProductImageRequest
-     */
-    'saveProductImageInternalRequests': Array<SaveProductImageInternalRequest>;
-}
-/**
- * 
- * @export
- * @interface SaveProductMaterialInternalRequest
- */
-export interface SaveProductMaterialInternalRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof SaveProductMaterialInternalRequest
-     */
-    'material': SaveProductMaterialInternalRequestMaterialEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveProductMaterialInternalRequest
-     */
-    'additionalPrice': number;
-}
-
-export const SaveProductMaterialInternalRequestMaterialEnum = {
-    K10: 'K10',
-    K14: 'K14',
-    K18: 'K18',
-    K22: 'K22',
-    K24: 'K24',
-    WhiteGold: 'WHITE_GOLD'
-} as const;
-
-export type SaveProductMaterialInternalRequestMaterialEnum = typeof SaveProductMaterialInternalRequestMaterialEnum[keyof typeof SaveProductMaterialInternalRequestMaterialEnum];
-
-/**
- * 
- * @export
- * @interface SaveProductMaterialRequest
- */
-export interface SaveProductMaterialRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveProductMaterialRequest
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {Array<SaveProductMaterialInternalRequest>}
-     * @memberof SaveProductMaterialRequest
-     */
-    'saveProductMaterialInternalRequest': Array<SaveProductMaterialInternalRequest>;
-}
-/**
- * 
- * @export
  * @interface SaveProductRequest
  */
 export interface SaveProductRequest {
@@ -775,12 +581,6 @@ export interface SaveProductRequest {
      * @memberof SaveProductRequest
      */
     'weightByMilliGram': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SaveProductRequest
-     */
-    'thumbnailImage': string;
     /**
      * 
      * @type {boolean}
@@ -899,12 +699,6 @@ export interface UpdateProductRequest {
     'weightByMilliGram'?: number;
     /**
      * 
-     * @type {string}
-     * @memberof UpdateProductRequest
-     */
-    'thumbnailImage'?: string;
-    /**
-     * 
      * @type {boolean}
      * @memberof UpdateProductRequest
      */
@@ -945,6 +739,227 @@ export const UpdateProductRequestProductTypeEnum = {
 
 export type UpdateProductRequestProductTypeEnum = typeof UpdateProductRequestProductTypeEnum[keyof typeof UpdateProductRequestProductTypeEnum];
 
+/**
+ * 
+ * @export
+ * @interface UpsertProductColorInternalRequest
+ */
+export interface UpsertProductColorInternalRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductColorInternalRequest
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpsertProductColorInternalRequest
+     */
+    'color': UpsertProductColorInternalRequestColorEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductColorInternalRequest
+     */
+    'additionalPrice': number;
+}
+
+export const UpsertProductColorInternalRequestColorEnum = {
+    Gold: 'GOLD',
+    RoseGold: 'ROSE_GOLD',
+    WhiteGold: 'WHITE_GOLD'
+} as const;
+
+export type UpsertProductColorInternalRequestColorEnum = typeof UpsertProductColorInternalRequestColorEnum[keyof typeof UpsertProductColorInternalRequestColorEnum];
+
+/**
+ * 
+ * @export
+ * @interface UpsertProductColorRequest
+ */
+export interface UpsertProductColorRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductColorRequest
+     */
+    'productId': number;
+    /**
+     * 
+     * @type {Array<UpsertProductColorInternalRequest>}
+     * @memberof UpsertProductColorRequest
+     */
+    'upsertProductColorInternalRequests': Array<UpsertProductColorInternalRequest>;
+}
+/**
+ * 
+ * @export
+ * @interface UpsertProductImageInternalRequest
+ */
+export interface UpsertProductImageInternalRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductImageInternalRequest
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpsertProductImageInternalRequest
+     */
+    'imageUrl': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpsertProductImageInternalRequest
+     */
+    'isThumbnail': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UpsertProductImageRequest
+ */
+export interface UpsertProductImageRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductImageRequest
+     */
+    'productId': number;
+    /**
+     * 
+     * @type {Array<UpsertProductImageInternalRequest>}
+     * @memberof UpsertProductImageRequest
+     */
+    'upsertProductImageInternalRequests': Array<UpsertProductImageInternalRequest>;
+}
+/**
+ * 
+ * @export
+ * @interface UpsertProductMaterialInternalRequest
+ */
+export interface UpsertProductMaterialInternalRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductMaterialInternalRequest
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpsertProductMaterialInternalRequest
+     */
+    'material': UpsertProductMaterialInternalRequestMaterialEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductMaterialInternalRequest
+     */
+    'additionalPrice': number;
+}
+
+export const UpsertProductMaterialInternalRequestMaterialEnum = {
+    K10: 'K10',
+    K14: 'K14',
+    K18: 'K18',
+    K22: 'K22',
+    K24: 'K24'
+} as const;
+
+export type UpsertProductMaterialInternalRequestMaterialEnum = typeof UpsertProductMaterialInternalRequestMaterialEnum[keyof typeof UpsertProductMaterialInternalRequestMaterialEnum];
+
+/**
+ * 
+ * @export
+ * @interface UpsertProductMaterialRequest
+ */
+export interface UpsertProductMaterialRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductMaterialRequest
+     */
+    'productId': number;
+    /**
+     * 
+     * @type {Array<UpsertProductMaterialInternalRequest>}
+     * @memberof UpsertProductMaterialRequest
+     */
+    'upsertProductMaterialInternalRequest': Array<UpsertProductMaterialInternalRequest>;
+}
+/**
+ * 
+ * @export
+ * @interface UpsertProductOptionCategoryInternalRequest
+ */
+export interface UpsertProductOptionCategoryInternalRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductOptionCategoryInternalRequest
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpsertProductOptionCategoryInternalRequest
+     */
+    'name': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpsertProductOptionInternalRequest
+ */
+export interface UpsertProductOptionInternalRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductOptionInternalRequest
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpsertProductOptionInternalRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductOptionInternalRequest
+     */
+    'additionalPrice': number;
+}
+/**
+ * 
+ * @export
+ * @interface UpsertProductOptionRequest
+ */
+export interface UpsertProductOptionRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpsertProductOptionRequest
+     */
+    'productId': number;
+    /**
+     * 
+     * @type {UpsertProductOptionCategoryInternalRequest}
+     * @memberof UpsertProductOptionRequest
+     */
+    'optionCategory': UpsertProductOptionCategoryInternalRequest;
+    /**
+     * 
+     * @type {Array<UpsertProductOptionInternalRequest>}
+     * @memberof UpsertProductOptionRequest
+     */
+    'options': Array<UpsertProductOptionInternalRequest>;
+}
 
 /**
  * DefaultApi - axios parameter creator
@@ -952,45 +967,6 @@ export type UpdateProductRequestProductTypeEnum = typeof UpdateProductRequestPro
  */
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * 
-         * @param {ChangePrimaryProductImageRequest} changePrimaryProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        changePrimaryImageOfProduct: async (changePrimaryProductImageRequest: ChangePrimaryProductImageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'changePrimaryProductImageRequest' is not null or undefined
-            assertParamExists('changePrimaryImageOfProduct', 'changePrimaryProductImageRequest', changePrimaryProductImageRequest)
-            const localVarPath = `/admin/api/v1/products/images/change-primary`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(changePrimaryProductImageRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @param {*} [options] Override http request option.
@@ -1018,123 +994,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {DeleteProductColorRequest} deleteProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteProductColors: async (deleteProductColorRequest: DeleteProductColorRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'deleteProductColorRequest' is not null or undefined
-            assertParamExists('deleteProductColors', 'deleteProductColorRequest', deleteProductColorRequest)
-            const localVarPath = `/admin/api/v1/products/colors`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(deleteProductColorRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {DeleteProductImageRequest} deleteProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteProductImages: async (deleteProductImageRequest: DeleteProductImageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'deleteProductImageRequest' is not null or undefined
-            assertParamExists('deleteProductImages', 'deleteProductImageRequest', deleteProductImageRequest)
-            const localVarPath = `/admin/api/v1/products/images`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(deleteProductImageRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {DeleteProductMaterialRequest} deleteProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteProductMaterials: async (deleteProductMaterialRequest: DeleteProductMaterialRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'deleteProductMaterialRequest' is not null or undefined
-            assertParamExists('deleteProductMaterials', 'deleteProductMaterialRequest', deleteProductMaterialRequest)
-            const localVarPath = `/admin/api/v1/products/materials`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(deleteProductMaterialRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1350,123 +1209,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {SaveProductColorRequest} saveProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        saveProductColors: async (saveProductColorRequest: SaveProductColorRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'saveProductColorRequest' is not null or undefined
-            assertParamExists('saveProductColors', 'saveProductColorRequest', saveProductColorRequest)
-            const localVarPath = `/admin/api/v1/products/colors`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(saveProductColorRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {SaveProductImageRequest} saveProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        saveProductImages: async (saveProductImageRequest: SaveProductImageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'saveProductImageRequest' is not null or undefined
-            assertParamExists('saveProductImages', 'saveProductImageRequest', saveProductImageRequest)
-            const localVarPath = `/admin/api/v1/products/images`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(saveProductImageRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {SaveProductMaterialRequest} saveProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        saveProductMaterials: async (saveProductMaterialRequest: SaveProductMaterialRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'saveProductMaterialRequest' is not null or undefined
-            assertParamExists('saveProductMaterials', 'saveProductMaterialRequest', saveProductMaterialRequest)
-            const localVarPath = `/admin/api/v1/products/materials`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(saveProductMaterialRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {UpdateProductRequest} updateProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1504,6 +1246,162 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {UpsertProductColorRequest} upsertProductColorRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductColors: async (upsertProductColorRequest: UpsertProductColorRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'upsertProductColorRequest' is not null or undefined
+            assertParamExists('upsertProductColors', 'upsertProductColorRequest', upsertProductColorRequest)
+            const localVarPath = `/admin/api/v1/products/colors`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Authorization required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(upsertProductColorRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpsertProductImageRequest} upsertProductImageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductImages: async (upsertProductImageRequest: UpsertProductImageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'upsertProductImageRequest' is not null or undefined
+            assertParamExists('upsertProductImages', 'upsertProductImageRequest', upsertProductImageRequest)
+            const localVarPath = `/admin/api/v1/products/images`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Authorization required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(upsertProductImageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductMaterials: async (upsertProductMaterialRequest: UpsertProductMaterialRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'upsertProductMaterialRequest' is not null or undefined
+            assertParamExists('upsertProductMaterials', 'upsertProductMaterialRequest', upsertProductMaterialRequest)
+            const localVarPath = `/admin/api/v1/products/materials`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Authorization required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(upsertProductMaterialRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpsertProductOptionRequest} upsertProductOptionRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductOptions: async (upsertProductOptionRequest: UpsertProductOptionRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'upsertProductOptionRequest' is not null or undefined
+            assertParamExists('upsertProductOptions', 'upsertProductOptionRequest', upsertProductOptionRequest)
+            const localVarPath = `/admin/api/v1/products/options`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Authorization required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(upsertProductOptionRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1516,18 +1414,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {ChangePrimaryProductImageRequest} changePrimaryProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async changePrimaryImageOfProduct(changePrimaryProductImageRequest: ChangePrimaryProductImageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseLong>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.changePrimaryImageOfProduct(changePrimaryProductImageRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.changePrimaryImageOfProduct']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1535,42 +1421,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createPreSignedUrl(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['DefaultApi.createPreSignedUrl']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {DeleteProductColorRequest} deleteProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteProductColors(deleteProductColorRequest: DeleteProductColorRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseBoolean>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProductColors(deleteProductColorRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.deleteProductColors']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {DeleteProductImageRequest} deleteProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteProductImages(deleteProductImageRequest: DeleteProductImageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseBoolean>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProductImages(deleteProductImageRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.deleteProductImages']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {DeleteProductMaterialRequest} deleteProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteProductMaterials(deleteProductMaterialRequest: DeleteProductMaterialRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseBoolean>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProductMaterials(deleteProductMaterialRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.deleteProductMaterials']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1637,42 +1487,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {SaveProductColorRequest} saveProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async saveProductColors(saveProductColorRequest: SaveProductColorRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.saveProductColors(saveProductColorRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.saveProductColors']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {SaveProductImageRequest} saveProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async saveProductImages(saveProductImageRequest: SaveProductImageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.saveProductImages(saveProductImageRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.saveProductImages']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {SaveProductMaterialRequest} saveProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async saveProductMaterials(saveProductMaterialRequest: SaveProductMaterialRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.saveProductMaterials(saveProductMaterialRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.saveProductMaterials']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
          * @param {UpdateProductRequest} updateProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1681,6 +1495,54 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateProduct(updateProductRequest, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['DefaultApi.updateProduct']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpsertProductColorRequest} upsertProductColorRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async upsertProductColors(upsertProductColorRequest: UpsertProductColorRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductColors(upsertProductColorRequest, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['DefaultApi.upsertProductColors']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpsertProductImageRequest} upsertProductImageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async upsertProductImages(upsertProductImageRequest: UpsertProductImageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductImages(upsertProductImageRequest, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['DefaultApi.upsertProductImages']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async upsertProductMaterials(upsertProductMaterialRequest: UpsertProductMaterialRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductMaterials(upsertProductMaterialRequest, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['DefaultApi.upsertProductMaterials']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpsertProductOptionRequest} upsertProductOptionRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async upsertProductOptions(upsertProductOptionRequest: UpsertProductOptionRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseLong>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductOptions(upsertProductOptionRequest, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['DefaultApi.upsertProductOptions']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -1695,47 +1557,11 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @param {ChangePrimaryProductImageRequest} changePrimaryProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        changePrimaryImageOfProduct(changePrimaryProductImageRequest: ChangePrimaryProductImageRequest, options?: any): AxiosPromise<ApiResponseLong> {
-            return localVarFp.changePrimaryImageOfProduct(changePrimaryProductImageRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         createPreSignedUrl(options?: any): AxiosPromise<ApiResponseGetPreSignedUrlResponse> {
             return localVarFp.createPreSignedUrl(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {DeleteProductColorRequest} deleteProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteProductColors(deleteProductColorRequest: DeleteProductColorRequest, options?: any): AxiosPromise<ApiResponseBoolean> {
-            return localVarFp.deleteProductColors(deleteProductColorRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {DeleteProductImageRequest} deleteProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteProductImages(deleteProductImageRequest: DeleteProductImageRequest, options?: any): AxiosPromise<ApiResponseBoolean> {
-            return localVarFp.deleteProductImages(deleteProductImageRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {DeleteProductMaterialRequest} deleteProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteProductMaterials(deleteProductMaterialRequest: DeleteProductMaterialRequest, options?: any): AxiosPromise<ApiResponseBoolean> {
-            return localVarFp.deleteProductMaterials(deleteProductMaterialRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1786,39 +1612,48 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {SaveProductColorRequest} saveProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        saveProductColors(saveProductColorRequest: SaveProductColorRequest, options?: any): AxiosPromise<ApiResponseListLong> {
-            return localVarFp.saveProductColors(saveProductColorRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {SaveProductImageRequest} saveProductImageRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        saveProductImages(saveProductImageRequest: SaveProductImageRequest, options?: any): AxiosPromise<ApiResponseListLong> {
-            return localVarFp.saveProductImages(saveProductImageRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {SaveProductMaterialRequest} saveProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        saveProductMaterials(saveProductMaterialRequest: SaveProductMaterialRequest, options?: any): AxiosPromise<ApiResponseListLong> {
-            return localVarFp.saveProductMaterials(saveProductMaterialRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {UpdateProductRequest} updateProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         updateProduct(updateProductRequest: UpdateProductRequest, options?: any): AxiosPromise<ApiResponseLong> {
             return localVarFp.updateProduct(updateProductRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpsertProductColorRequest} upsertProductColorRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductColors(upsertProductColorRequest: UpsertProductColorRequest, options?: any): AxiosPromise<ApiResponseListLong> {
+            return localVarFp.upsertProductColors(upsertProductColorRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpsertProductImageRequest} upsertProductImageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductImages(upsertProductImageRequest: UpsertProductImageRequest, options?: any): AxiosPromise<ApiResponseListLong> {
+            return localVarFp.upsertProductImages(upsertProductImageRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductMaterials(upsertProductMaterialRequest: UpsertProductMaterialRequest, options?: any): AxiosPromise<ApiResponseListLong> {
+            return localVarFp.upsertProductMaterials(upsertProductMaterialRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpsertProductOptionRequest} upsertProductOptionRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upsertProductOptions(upsertProductOptionRequest: UpsertProductOptionRequest, options?: any): AxiosPromise<ApiResponseLong> {
+            return localVarFp.upsertProductOptions(upsertProductOptionRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1832,56 +1667,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
 export class DefaultApi extends BaseAPI {
     /**
      * 
-     * @param {ChangePrimaryProductImageRequest} changePrimaryProductImageRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public changePrimaryImageOfProduct(changePrimaryProductImageRequest: ChangePrimaryProductImageRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).changePrimaryImageOfProduct(changePrimaryProductImageRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
     public createPreSignedUrl(options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).createPreSignedUrl(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {DeleteProductColorRequest} deleteProductColorRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deleteProductColors(deleteProductColorRequest: DeleteProductColorRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteProductColors(deleteProductColorRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {DeleteProductImageRequest} deleteProductImageRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deleteProductImages(deleteProductImageRequest: DeleteProductImageRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteProductImages(deleteProductImageRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {DeleteProductMaterialRequest} deleteProductMaterialRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public deleteProductMaterials(deleteProductMaterialRequest: DeleteProductMaterialRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).deleteProductMaterials(deleteProductMaterialRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1943,39 +1734,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @param {SaveProductColorRequest} saveProductColorRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public saveProductColors(saveProductColorRequest: SaveProductColorRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).saveProductColors(saveProductColorRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {SaveProductImageRequest} saveProductImageRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public saveProductImages(saveProductImageRequest: SaveProductImageRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).saveProductImages(saveProductImageRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {SaveProductMaterialRequest} saveProductMaterialRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public saveProductMaterials(saveProductMaterialRequest: SaveProductMaterialRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).saveProductMaterials(saveProductMaterialRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {UpdateProductRequest} updateProductRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1983,6 +1741,50 @@ export class DefaultApi extends BaseAPI {
      */
     public updateProduct(updateProductRequest: UpdateProductRequest, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).updateProduct(updateProductRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpsertProductColorRequest} upsertProductColorRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public upsertProductColors(upsertProductColorRequest: UpsertProductColorRequest, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).upsertProductColors(upsertProductColorRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpsertProductImageRequest} upsertProductImageRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public upsertProductImages(upsertProductImageRequest: UpsertProductImageRequest, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).upsertProductImages(upsertProductImageRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public upsertProductMaterials(upsertProductMaterialRequest: UpsertProductMaterialRequest, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).upsertProductMaterials(upsertProductMaterialRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpsertProductOptionRequest} upsertProductOptionRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public upsertProductOptions(upsertProductOptionRequest: UpsertProductOptionRequest, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).upsertProductOptions(upsertProductOptionRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
