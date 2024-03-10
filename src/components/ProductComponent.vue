@@ -173,7 +173,10 @@ export default defineComponent({
     },
 
     goToProductDetails(productId) {
-      this.$router.push({ name: "productDetail", params: { id: productId } });
+      this.$router.push({
+        name: "productDetail",
+        params: { productId: productId },
+      });
     },
 
     goToPage(pageNumber) {

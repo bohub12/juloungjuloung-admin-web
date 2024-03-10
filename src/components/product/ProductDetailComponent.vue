@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-3">Product Detail</h1>
+    <h1 class="mb-3">Product Detail {{ productId }}</h1>
     <div class="mb-3">
       <label for="productName" class="form-label">상품 이름</label>
       <input
@@ -155,7 +155,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "ProductDetailComponent",
   props: {
-    id: {
+    productId: {
       type: BigInt,
     },
   },
