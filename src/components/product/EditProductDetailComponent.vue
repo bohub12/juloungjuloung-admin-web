@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h2>Edit Product</h2>
+    <h1 class="mb-3">Edit Product</h1>
     <form @submit.prevent="handleSubmit">
       <div class="mb-3">
         <label for="productName" class="form-label">상품 이름</label>
@@ -25,9 +25,6 @@
             disabled
           />
         </div>
-        <!-- <label class="form-check-label" for="flexSwitchCheckChecked"
-          >상품 전시여부
-        </label> -->
       </div>
 
       <div class="mb-3">
@@ -76,31 +73,6 @@
           readonly
         />
       </div>
-      <div class="mb-3">
-        <div>상품 색상</div>
-        <ul class="list-group list-group-horizontal">
-          <li
-            v-for="color in product.colors"
-            :key="color.color"
-            class="list-group-item"
-          >
-            {{ color.color }} (+{{ color.additionalPrice }}원)
-          </li>
-        </ul>
-      </div>
-
-      <div class="mb-3">
-        <div>상품 재질</div>
-        <ul class="list-group list-group-horizontal">
-          <li
-            v-for="material in product.materials"
-            :key="material.material"
-            class="list-group-item"
-          >
-            {{ material.material }} (+{{ material.additionalPrice }}원)
-          </li>
-        </ul>
-      </div>
 
       <div class="mb-3">
         <div class="mt-3">상품 이미지</div>
@@ -114,6 +86,72 @@
             class="rounded ml-1"
           />
         </ul>
+      </div>
+
+      <div class="border-bottom mb-3 mt-3" />
+      <h2 class="mb-3">Product Options</h2>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>상품 적용 가능한 색상별 추가금액(원)</div>
+          <button class="btn btn-primary" @click="addColorOption">
+            옵션 추가
+          </button>
+        </div>
+        <div
+          v-for="(color, index) in product.colors"
+          :key="index"
+          class="input-group mt-2"
+        >
+          <select class="form-select" aria-label="Default select example">
+            <option value="1">ROSE_GOLD</option>
+            <option value="2">WHITE_GOLD</option>
+            <option value="3">GOLD</option>
+          </select>
+
+          <input
+            type="number"
+            class="form-control"
+            v-model="color.additionalPrice"
+            placeholder="추가 가격"
+            required
+          />
+          <button class="btn btn-danger" @click="removeColorOption(index)">
+            삭제
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>상품 적용 가능한 재질별 추가 금액 (원)</div>
+          <button class="btn btn-primary" @click="addMaterialOption">
+            옵션 추가
+          </button>
+        </div>
+        <div
+          v-for="(material, index) in product.materials"
+          :key="index"
+          class="input-group mt-2"
+        >
+          <input
+            type="text"
+            class="form-control"
+            v-model="material.material"
+            placeholder="재질"
+            required
+          />
+          <input
+            type="number"
+            class="form-control"
+            v-model="material.additionalPrice"
+            placeholder="추가 가격"
+            required
+          />
+          <button class="btn btn-danger" @click="removeMaterialOption(index)">
+            삭제
+          </button>
+        </div>
       </div>
 
       <button v-if="mode !== 'view'" type="submit" class="btn btn-primary">
@@ -194,6 +232,18 @@ export default defineComponent({
       if (files.length > 0) {
         this.product.images = Array.from(files);
       }
+    },
+    addColorOption() {
+      this.product.colors.push({ color: "", additionalPrice: 0 });
+    },
+    addMaterialOption() {
+      this.product.materials.push({ material: "", additionalPrice: 0 });
+    },
+    removeColorOption(index) {
+      this.product.colors.splice(index, 1);
+    },
+    removeMaterialOption(index) {
+      this.product.materials.splice(index, 1);
     },
   },
 });
