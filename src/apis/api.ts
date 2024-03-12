@@ -274,6 +274,37 @@ export interface ApiResponseLong {
 /**
  * 
  * @export
+ * @interface ApiResponseProductDetailResponse
+ */
+export interface ApiResponseProductDetailResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ApiResponseProductDetailResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiResponseProductDetailResponse
+     */
+    'message': string;
+    /**
+     * 
+     * @type {ProductDetailResponse}
+     * @memberof ApiResponseProductDetailResponse
+     */
+    'data'?: ProductDetailResponse;
+    /**
+     * 
+     * @type {PageResponse}
+     * @memberof ApiResponseProductDetailResponse
+     */
+    'pageResponse'?: PageResponse;
+}
+/**
+ * 
+ * @export
  * @interface GetPreSignedUrlResponse
  */
 export interface GetPreSignedUrlResponse {
@@ -358,6 +389,25 @@ export type ProductColorResponseColorEnum = typeof ProductColorResponseColorEnum
 /**
  * 
  * @export
+ * @interface ProductDetailResponse
+ */
+export interface ProductDetailResponse {
+    /**
+     * 
+     * @type {ProductResponse}
+     * @memberof ProductDetailResponse
+     */
+    'product': ProductResponse;
+    /**
+     * 
+     * @type {Array<ProductOptionInfoResponse>}
+     * @memberof ProductDetailResponse
+     */
+    'productOptionInfos': Array<ProductOptionInfoResponse>;
+}
+/**
+ * 
+ * @export
  * @interface ProductImageResponse
  */
 export interface ProductImageResponse {
@@ -437,9 +487,90 @@ export type ProductMaterialResponseMaterialEnum = typeof ProductMaterialResponse
 /**
  * 
  * @export
+ * @interface ProductOptionCategoryResponse
+ */
+export interface ProductOptionCategoryResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductOptionCategoryResponse
+     */
+    'id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductOptionCategoryResponse
+     */
+    'productId': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductOptionCategoryResponse
+     */
+    'name': string;
+}
+/**
+ * 
+ * @export
+ * @interface ProductOptionInfoResponse
+ */
+export interface ProductOptionInfoResponse {
+    /**
+     * 
+     * @type {ProductOptionCategoryResponse}
+     * @memberof ProductOptionInfoResponse
+     */
+    'optionCategory': ProductOptionCategoryResponse;
+    /**
+     * 
+     * @type {Array<ProductOptionResponse>}
+     * @memberof ProductOptionInfoResponse
+     */
+    'options': Array<ProductOptionResponse>;
+}
+/**
+ * 
+ * @export
+ * @interface ProductOptionResponse
+ */
+export interface ProductOptionResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductOptionResponse
+     */
+    'id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductOptionResponse
+     */
+    'productOptionCategoryId': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductOptionResponse
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductOptionResponse
+     */
+    'additionalPrice': number;
+}
+/**
+ * 
+ * @export
  * @interface ProductResponse
  */
 export interface ProductResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductResponse
+     */
+    'id': number;
     /**
      * 
      * @type {string}
@@ -506,12 +637,6 @@ export interface ProductResponse {
      * @memberof ProductResponse
      */
     'updatedAt': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductResponse
-     */
-    'id': number;
 }
 /**
  * 
@@ -1046,6 +1171,46 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        readProductDetail: async (productId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'productId' is not null or undefined
+            assertParamExists('readProductDetail', 'productId', productId)
+            const localVarPath = `/admin/api/v1/products/detail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Authorization required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (productId !== undefined) {
+                localVarQueryParameter['productId'] = productId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} productId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         readProductImages: async (productId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'productId' is not null or undefined
             assertParamExists('readProductImages', 'productId', productId)
@@ -1441,6 +1606,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async readProductDetail(productId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseProductDetailResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.readProductDetail(productId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['DefaultApi.readProductDetail']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} productId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async readProductImages(productId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListProductImageResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.readProductImages(productId, options);
             const index = configuration?.serverIndex ?? 0;
@@ -1578,6 +1755,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        readProductDetail(productId: number, options?: any): AxiosPromise<ApiResponseProductDetailResponse> {
+            return localVarFp.readProductDetail(productId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} productId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         readProductImages(productId: number, options?: any): AxiosPromise<ApiResponseListProductImageResponse> {
             return localVarFp.readProductImages(productId, options).then((request) => request(axios, basePath));
         },
@@ -1684,6 +1870,17 @@ export class DefaultApi extends BaseAPI {
      */
     public readProductColors(productId: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).readProductColors(productId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} productId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public readProductDetail(productId: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).readProductDetail(productId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -20,7 +20,8 @@
           type="checkbox"
           role="switch"
           id="flexSwitchCheckChecked"
-          checked
+          :checked="product.isDisplay"
+          :unchecked="!product.isDisplay"
           disabled
         />
       </div>
@@ -32,7 +33,7 @@
         type="text"
         class="form-control"
         id="productType"
-        v-model="product.type"
+        v-model="product.productType"
         disabled
         readonly
       />
@@ -44,7 +45,7 @@
         type="text"
         class="form-control"
         id="productCode"
-        v-model="product.code"
+        v-model="product.productCode"
         disabled
         readonly
       />
@@ -67,7 +68,7 @@
         type="text"
         class="form-control"
         id="productWeight"
-        v-model="product.weight"
+        v-model="product.weightByMilliGram"
         required
         readonly
       />
@@ -91,149 +92,80 @@
     <h2 class="mb-3">Product Options</h2>
 
     <div class="mb-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <div>상품 적용 가능한 색상별 추가금액(원)</div>
-        <button class="btn btn-primary" @click="addColorOption">
-          옵션 추가
-        </button>
-      </div>
       <div
-        v-for="(color, index) in product.colors"
+        v-for="(productOptionInfo, index) in productOptionInfos"
         :key="index"
-        class="input-group mt-2"
+        class="mb-3"
       >
-        <select class="form-select" aria-label="Default select example">
-          <option value="1">ROSE_GOLD</option>
-          <option value="2">WHITE_GOLD</option>
-          <option value="3">GOLD</option>
-        </select>
-
-        <input
-          type="number"
-          class="form-control"
-          v-model="color.additionalPrice"
-          placeholder="추가 가격"
-          required
-        />
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <div>상품 적용 가능한 재질별 추가 금액 (원)</div>
-        <button class="btn btn-primary" @click="addMaterialOption">
-          옵션 추가
-        </button>
-      </div>
-      <div
-        v-for="(material, index) in product.materials"
-        :key="index"
-        class="input-group mt-2"
-      >
-        <input
-          type="text"
-          class="form-control"
-          v-model="material.material"
-          placeholder="재질"
-          required
-        />
-        <input
-          type="number"
-          class="form-control"
-          v-model="material.additionalPrice"
-          placeholder="추가 가격"
-          required
-        />
+        <div class="d-flex justify-content-between align-items-center">
+          <div>{{ productOptionInfo.optionCategory.name }}</div>
+        </div>
+        <div
+          v-for="(option, index) in productOptionInfo.options"
+          :key="index"
+          class="input-group mt-2"
+        >
+          <input
+            type="text"
+            class="form-control"
+            v-model="option.name"
+            placeholder="옵션 이름"
+            readonly
+          />
+          <input
+            type="number"
+            class="form-control"
+            v-model="option.additionalPrice"
+            placeholder="추가 가격"
+            readonly
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
+import {
+  DefaultApiFactory,
+  ProductResponse,
+  ProductOptionInfoResponse,
+} from "../../apis";
+
+const defaultApi = DefaultApiFactory();
 
 export default defineComponent({
   name: "ProductDetailComponent",
   props: {
     productId: {
-      type: BigInt,
+      type: Number,
     },
   },
   data() {
     return {
-      mode: "view", // 'view' or 'create' or 'edit'
-      product: {
-        name: "주렁주렁 스탠다드 목걸이",
-        isDisplay: false,
-        code: "ABC",
-        type: "BRACELET",
-        price: "150000",
-        weight: 10,
-        isDiamond: false,
-        images: [
-          {
-            imageUrl: "https://picsum.photos/200/200",
-            isThumnail: true,
-          },
-          {
-            imageUrl: "https://picsum.photos/200/300",
-            isThumnail: false,
-          },
-        ],
-        colors: [
-          {
-            color: "ROSE_GOLD",
-            additionalPrice: 0,
-          },
-          {
-            color: "GOLD",
-            additionalPrice: 1000,
-          },
-        ],
-        materials: [
-          {
-            material: "14K",
-            additionalPrice: 0,
-          },
-          {
-            material: "18K",
-            additionalPrice: 1000,
-          },
-          {
-            material: "24K",
-            additionalPrice: 2000,
-          },
-        ],
-      },
+      product: {} as ProductResponse,
+      productOptionInfos: [] as Array<ProductOptionInfoResponse>,
     };
   },
   mounted() {
-    this.$store.commit("menu/setMenu", "product");
+    const store = useStore();
+    store.commit("menu/setMenu", "product");
+    this.getProductDetailFromServer(this.productId as number);
   },
   methods: {
-    handleSubmit() {
-      // Handle form submission (e.g., sending data to server)
-      console.log("Form submitted", this.product);
-    },
-    handleImageChange(event) {
-      const files = event.target.files;
-      if (files.length > 0) {
-        this.product.images = Array.from(files);
+    async getProductDetailFromServer(productId: number) {
+      try {
+        const response = await defaultApi.readProductDetail(productId);
+        this.product = response.data.data?.product ?? ({} as ProductResponse);
+        this.productOptionInfos =
+          response.data.data?.productOptionInfos ??
+          ([] as Array<ProductOptionInfoResponse>);
+      } catch (error) {
+        console.error("Error fetching product detail:", error);
+        this.product = {} as ProductResponse;
       }
-    },
-
-    addColorOption() {
-      this.product.colors.push({ color: "", additionalPrice: 0 });
-    },
-
-    addMaterialOption() {
-      this.product.materials.push({ material: "", additionalPrice: 0 });
-    },
-    removeColorOption(index) {
-      this.product.colors.splice(index, 1);
-    },
-    removeMaterialOption(index) {
-      this.product.materials.splice(index, 1);
     },
   },
 });
