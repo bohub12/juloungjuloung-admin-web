@@ -3,6 +3,13 @@
     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
   >
     <h2>상품</h2>
+    <button
+      type="button"
+      class="btn btn-primary"
+      @click="moveToSaveProductDetailComponent"
+    >
+      상품 추가하기
+    </button>
   </div>
 
   <div class="row">
@@ -176,6 +183,11 @@ export default defineComponent({
       this.$router.push({
         name: "productDetail",
         params: { productId: productId },
+      });
+    },
+    moveToSaveProductDetailComponent() {
+      this.$router.push({
+        name: "saveProductDetail",
       });
     },
 

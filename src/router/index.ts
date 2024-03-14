@@ -4,6 +4,7 @@ import DashboardComponent from "@/components/DashboardComponent.vue";
 import ProductComponent from "@/components/ProductComponent.vue";
 import ProductDetailComponent from "@/components/product/ProductDetailComponent.vue";
 import OrderComponent from "@/components/OrderComponent.vue";
+import SaveProductDetailComponent from "@/components/product/SaveProductDetailComponent.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/product",
         name: "product",
         component: ProductComponent,
+      },
+      {
+        path: "/product/save",
+        name: "saveProductDetail",
+        component: SaveProductDetailComponent,
       },
       {
         path: "/product/:productId",
