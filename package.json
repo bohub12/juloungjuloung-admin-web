@@ -9,6 +9,7 @@
     "oas-generate": "openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-axios -o ./src/apis"
   },
   "dependencies": {
+    "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
     "core-js": "^3.8.3",
