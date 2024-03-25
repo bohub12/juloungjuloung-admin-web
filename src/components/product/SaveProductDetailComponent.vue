@@ -217,12 +217,7 @@ export default defineComponent({
         .catch((error) => console.error(error));
     },
     async saveProductImages() {
-      for (const productImageFile of this.productImageFiles) {
-        this.saveProductImage(productImageFile);
-      }
-    },
-    async saveProductImage(imageFile: File) {
-      // save product image info to my server
+      // todo
     },
     async imageFileUploadToS3(event: Event) {
       const input = event.target as HTMLInputElement;
@@ -267,8 +262,6 @@ export default defineComponent({
 
     async saveProductOptionInfos() {
       // save product option infos
-
-      console.log("save product option infos");
     },
 
     addOptionCategory() {
