@@ -212,6 +212,7 @@ export default defineComponent({
     async saveProduct() {
       const response = await defaultApi.saveProduct(this.product);
 
+      // eslint-disable-next-line
       this.savedProductId = response.data.data!;
     },
     async saveProductImages() {
@@ -232,7 +233,9 @@ export default defineComponent({
         const file = input.files[0];
         const resposne = await defaultApi.createPreSignedUrl();
 
+        // eslint-disable-next-line
         const preSignedUrl = resposne.data.data!.preSignedUrl;
+        // eslint-disable-next-line
         const virtualImagePath = resposne.data.data!.virtualImagePath;
 
         await this.uploadImageToS3(preSignedUrl, file);
@@ -252,18 +255,16 @@ export default defineComponent({
             isThumbnail: false,
           });
         }
-
-        console.log(virtualImagePath);
       }
     },
     async uploadImageToS3(preSignedUrl: string, imageFile: File) {
+      // TODO : 이미지 파일 확장자에 맞게끔 수정할지 결정 (서버도 같이 수정)
       await axios
         .put(preSignedUrl, imageFile, {
           headers: {
             "Content-Type": "image/jpg",
           },
         })
-        .then((res) => console.log(res))
         .catch((error) => console.error(error));
     },
 
