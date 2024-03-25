@@ -641,44 +641,6 @@ export interface ProductResponse {
 /**
  * 
  * @export
- * @interface SaveBraceletAdditionalRequest
- */
-export interface SaveBraceletAdditionalRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveBraceletAdditionalRequest
-     */
-    'maximumLength': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveBraceletAdditionalRequest
-     */
-    'minimumLength': number;
-}
-/**
- * 
- * @export
- * @interface SaveNecklaceAdditionalRequest
- */
-export interface SaveNecklaceAdditionalRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveNecklaceAdditionalRequest
-     */
-    'maximumLength': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SaveNecklaceAdditionalRequest
-     */
-    'minimumLength': number;
-}
-/**
- * 
- * @export
  * @interface SaveProductRequest
  */
 export interface SaveProductRequest {
@@ -724,18 +686,6 @@ export interface SaveProductRequest {
      * @memberof SaveProductRequest
      */
     'isDisplay': boolean;
-    /**
-     * 
-     * @type {SaveBraceletAdditionalRequest}
-     * @memberof SaveProductRequest
-     */
-    'saveBraceletAdditionalRequest'?: SaveBraceletAdditionalRequest;
-    /**
-     * 
-     * @type {SaveNecklaceAdditionalRequest}
-     * @memberof SaveProductRequest
-     */
-    'saveNecklaceAdditionalRequest'?: SaveNecklaceAdditionalRequest;
 }
 
 export const SaveProductRequestProductTypeEnum = {
@@ -748,44 +698,6 @@ export const SaveProductRequestProductTypeEnum = {
 
 export type SaveProductRequestProductTypeEnum = typeof SaveProductRequestProductTypeEnum[keyof typeof SaveProductRequestProductTypeEnum];
 
-/**
- * 
- * @export
- * @interface UpdateBraceletAdditionalRequest
- */
-export interface UpdateBraceletAdditionalRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateBraceletAdditionalRequest
-     */
-    'maximumLength': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateBraceletAdditionalRequest
-     */
-    'minimumLength': number;
-}
-/**
- * 
- * @export
- * @interface UpdateNecklaceAdditionalRequest
- */
-export interface UpdateNecklaceAdditionalRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateNecklaceAdditionalRequest
-     */
-    'maximumLength': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateNecklaceAdditionalRequest
-     */
-    'minimumLength': number;
-}
 /**
  * 
  * @export
@@ -840,18 +752,6 @@ export interface UpdateProductRequest {
      * @memberof UpdateProductRequest
      */
     'isDisplay'?: boolean;
-    /**
-     * 
-     * @type {UpdateBraceletAdditionalRequest}
-     * @memberof UpdateProductRequest
-     */
-    'updateBraceletAdditionalRequest'?: UpdateBraceletAdditionalRequest;
-    /**
-     * 
-     * @type {UpdateNecklaceAdditionalRequest}
-     * @memberof UpdateProductRequest
-     */
-    'updateNecklaceAdditionalRequest'?: UpdateNecklaceAdditionalRequest;
 }
 
 export const UpdateProductRequestProductTypeEnum = {

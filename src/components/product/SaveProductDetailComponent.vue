@@ -73,7 +73,7 @@
             id="file-upload"
             type="file"
             accept=".jpg, .jpeg, .png"
-            @change="imageFileUploadToS3"
+            @change="imageFileUpload"
           />
         </div>
         <ul class="list-group list-group-horizontal overflow-auto">
@@ -197,9 +197,10 @@ export default defineComponent({
     store.commit("menu/setMenu", "product");
   },
   methods: {
-    handleSubmit() {
-      this.saveProduct();
+    async handleSubmit() {
+      await this.saveProduct();
 
+      // update request (productId)
       this.productImages.productId = this.savedProductId;
       this.productOptionInfos.forEach((value) => {
         value.productId = this.savedProductId;
@@ -209,17 +210,23 @@ export default defineComponent({
       this.saveProductOptionInfos();
     },
     async saveProduct() {
-      defaultApi
-        .saveProduct(this.product)
-        .then((res) => {
-          this.savedProductId = res.data.data!;
-        })
-        .catch((error) => console.error(error));
+      const response = await defaultApi.saveProduct(this.product);
+
+      this.savedProductId = response.data.data!;
     },
     async saveProductImages() {
-      // todo
+      try {
+        const response = await defaultApi.upsertProductImages(
+          this.productImages
+        );
+        if (response.data.code != 200) {
+          console.error("fail to saving product images to DB");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
-    async imageFileUploadToS3(event: Event) {
+    async imageFileUpload(event: Event) {
       const input = event.target as HTMLInputElement;
       if (input.files) {
         const file = input.files[0];
@@ -235,7 +242,7 @@ export default defineComponent({
             {
               id: 0,
               imageUrl: virtualImagePath,
-              isThumbnail: false,
+              isThumbnail: true,
             },
           ];
         } else {
@@ -261,7 +268,19 @@ export default defineComponent({
     },
 
     async saveProductOptionInfos() {
-      // save product option infos
+      try {
+        this.productOptionInfos.forEach(async function (productOptionInfo) {
+          const resposne = await defaultApi.upsertProductOptions(
+            productOptionInfo
+          );
+
+          if (resposne.data.code != 200) {
+            console.error("fail to saving product option");
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     addOptionCategory() {
