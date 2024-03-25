@@ -58,7 +58,7 @@
       </div>
 
       <div class="mb-3">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
           <div>상품 이미지</div>
           <label for="file-upload" class="custom-file-upload bg-primary badge">
             <!-- <span class="fs-2"> -->
@@ -90,37 +90,69 @@
       </div>
 
       <div class="border-bottom mb-3 mt-3" />
-      <h2 class="mb-3">Product Options</h2>
-
-      <div class="mb-3">
-        <div
-          v-for="(productOptionInfo, index) in productOptionInfos"
-          :key="index"
-          class="mb-3"
+      <div class="d-flex justify-content-between mb-3">
+        <h2>Product Options</h2>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="addOptionCategory"
         >
-          <div class="d-flex justify-content-between align-items-center">
-            <div>{{ productOptionInfo.optionCategory.name }}</div>
-          </div>
-          <div
-            v-for="(option, index) in productOptionInfo.options"
-            :key="index"
-            class="input-group mt-2"
+          옵션 카테고리 추가
+        </button>
+      </div>
+
+      <div
+        class="mb-3"
+        v-for="(optionInfo, optionCategoryIndex) in this.productOptionInfos"
+        :key="optionCategoryIndex"
+      >
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            v-model="optionInfo.optionCategory.name"
+            placeholder="ex) 재질, 호수..."
+            required
+          />
+          <button
+            class="btn btn-danger"
+            @click="removeOptionCategory(optionCategoryIndex)"
           >
-            <input
-              type="text"
-              class="form-control"
-              v-model="option.name"
-              placeholder="옵션 이름"
-              readonly
-            />
-            <input
-              type="number"
-              class="form-control"
-              v-model="option.additionalPrice"
-              placeholder="추가 가격"
-              readonly
-            />
-          </div>
+            삭제
+          </button>
+          <button
+            class="btn btn-primary"
+            @click="addOption(optionCategoryIndex)"
+          >
+            하위에 옵션 추가
+          </button>
+        </div>
+
+        <div
+          v-for="(option, optionIndex) in optionInfo.options"
+          :key="optionIndex"
+          class="input-group mt-2 ps-5"
+        >
+          <input
+            type="text"
+            class="form-control"
+            v-model="option.name"
+            placeholder="ex) 14호, 16호, 로즈골드, 화이트골드 ..."
+            required
+          />
+          <input
+            type="number"
+            class="form-control"
+            v-model="option.additionalPrice"
+            placeholder="옵션별 추가 가격"
+            required
+          />
+          <button
+            class="btn btn-danger"
+            @click="removeOption(optionCategoryIndex, optionIndex)"
+          >
+            삭제
+          </button>
         </div>
       </div>
 
@@ -157,7 +189,7 @@ export default defineComponent({
       product: {} as SaveProductRequest,
       productImages: {} as UpsertProductImageRequest,
       productImageFiles: [] as Array<File>,
-      productOptionInfos: {} as UpsertProductOptionRequest,
+      productOptionInfos: [] as Array<UpsertProductOptionRequest>,
     };
   },
   mounted() {
@@ -169,7 +201,9 @@ export default defineComponent({
       this.saveProduct();
 
       this.productImages.productId = this.savedProductId;
-      this.productOptionInfos.productId = this.savedProductId;
+      this.productOptionInfos.forEach((value) => {
+        value.productId = this.savedProductId;
+      });
 
       this.saveProductImages();
       this.saveProductOptionInfos();
@@ -235,6 +269,30 @@ export default defineComponent({
       // save product option infos
 
       console.log("save product option infos");
+    },
+
+    addOptionCategory() {
+      this.productOptionInfos.push({
+        productId: 0,
+        optionCategory: { id: 0, name: "" },
+        options: [],
+      });
+    },
+    removeOptionCategory(optionCategoryIndex: number) {
+      this.productOptionInfos.splice(optionCategoryIndex, 1);
+    },
+    addOption(optionCategoryIndex: number) {
+      this.productOptionInfos[optionCategoryIndex].options.push({
+        id: 0,
+        name: "",
+        additionalPrice: 0,
+      });
+    },
+    removeOption(optionCategoryIndex: number, optionIndex: number) {
+      this.productOptionInfos[optionCategoryIndex].options.splice(
+        optionIndex,
+        1
+      );
     },
   },
 });
