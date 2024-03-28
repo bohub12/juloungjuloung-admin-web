@@ -61,12 +61,10 @@
         <div class="d-flex justify-content-between align-items-center">
           <div>상품 이미지</div>
           <label for="file-upload" class="custom-file-upload bg-primary badge">
-            <!-- <span class="fs-2"> -->
             <i
               class="bi bi-cloud-arrow-up-fill"
               style="padding-right: 0.25rem"
             ></i>
-            <!-- </span> -->
             <span>상품 이미지 업로드</span>
           </label>
           <input
@@ -77,15 +75,32 @@
           />
         </div>
         <ul class="list-group list-group-horizontal overflow-auto">
-          <img
-            v-for="image in this.productImages
+          <div
+            v-for="(image, index) in this.productImages
               .upsertProductImageInternalRequests"
-            :key="image.imageUrl"
-            :src="image.imageUrl"
-            width="200"
-            height="200"
-            class="rounded ml-1"
-          />
+            :key="index"
+            class="product-image"
+          >
+            <img
+              :src="image.imageUrl"
+              width="200"
+              height="200"
+              :class="[
+                'rounded',
+                'me-1',
+                image.isThumbnail
+                  ? 'border border-3 border-success border-opacity-75'
+                  : '',
+              ]"
+              @click="changeThumnailImage(index)"
+            />
+            <span
+              v-if="image.isThumbnail"
+              class="product-image-thumnail-badge badge bg-success text-white"
+            >
+              대표 이미지</span
+            >
+          </div>
         </ul>
       </div>
 
@@ -156,7 +171,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
   </div>
 </template>
@@ -198,6 +213,19 @@ export default defineComponent({
   },
   methods: {
     async handleSubmit() {
+      // TODO :  validation - 서버에서 진행할 수 있도록 BFF 패턴으로 전환할 예정 (우선은 프론트에서 validation 해줌)
+      if (!this.isValidSaveRequest()) {
+        alert(
+          "잘못된 입력값입니다. 다시 확인해주세요. (상품가격: 0이상, 상품무게: 0이상, 옵션카테고리 하위 옵션없이 저장 불가)"
+        );
+        return;
+      }
+
+      const result = confirm("저장하시겠습니까?");
+      if (!result) {
+        return;
+      }
+
       await this.saveProduct();
 
       // update request (productId)
@@ -208,6 +236,24 @@ export default defineComponent({
 
       this.saveProductImages();
       this.saveProductOptionInfos();
+
+      // routing to product page
+      this.$router.push({
+        name: "product",
+      });
+    },
+    isValidSaveRequest() {
+      if (this.product.price < 0 || this.product.weightByMilliGram < 0) {
+        return false;
+      }
+
+      for (const optionInfo of this.productOptionInfos) {
+        if (optionInfo.options.length == 0) {
+          return false;
+        }
+      }
+
+      return true;
     },
     async saveProduct() {
       const response = await defaultApi.saveProduct(this.product);
@@ -307,6 +353,17 @@ export default defineComponent({
         1
       );
     },
+    changeThumnailImage(productThumbnailImageIndex: number) {
+      this.productImages.upsertProductImageInternalRequests.forEach(
+        (request, index) => {
+          if (index == productThumbnailImageIndex) {
+            request.isThumbnail = true;
+          } else {
+            request.isThumbnail = false;
+          }
+        }
+      );
+    },
   },
 });
 </script>
@@ -324,9 +381,15 @@ input[type="file"] {
   justify-content: center;
   padding: 0.75rem;
 }
-/* 
-.custom-file-upload span {
-  display: block;
-  text-align: center;
-} */
+.product-image {
+  position: relative;
+  cursor: pointer;
+}
+.product-image-thumnail-badge {
+  position: absolute;
+  top: 10%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  --bs-bg-opacity: 0.75;
+}
 </style>
