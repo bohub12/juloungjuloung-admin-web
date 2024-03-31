@@ -26,19 +26,6 @@
         />
       </div>
     </div>
-
-    <!-- <div class="mb-3">
-      <label for="productType" class="form-label">상품 타입</label>
-      <input
-        type="text"
-        class="form-control"
-        id="productType"
-        v-model="product.productType"
-        disabled
-        readonly
-      />
-    </div> -->
-
     <div class="mb-3">
       <label for="productType" class="form-label">상품 타입</label>
       <select
@@ -93,7 +80,7 @@
       />
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <div class="mt-3">상품 이미지</div>
       <ul class="list-group list-group-horizontal">
         <img
@@ -104,6 +91,38 @@
           height="200"
           class="rounded ml-1"
         />
+      </ul>
+    </div> -->
+
+    <div class="mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>상품 이미지</div>
+      </div>
+      <ul class="list-group list-group-horizontal overflow-auto">
+        <div
+          v-for="(image, index) in this.productImages"
+          :key="index"
+          class="product-image"
+        >
+          <img
+            :src="image.imageUrl"
+            width="200"
+            height="200"
+            :class="[
+              'rounded',
+              'me-1',
+              image.isThumbnail
+                ? 'border border-3 border-success border-opacity-75'
+                : '',
+            ]"
+          />
+          <span
+            v-if="image.isThumbnail"
+            class="product-image-thumnail-badge badge bg-success text-white"
+          >
+            대표 이미지</span
+          >
+        </div>
       </ul>
     </div>
 
@@ -151,6 +170,7 @@ import {
   DefaultApiFactory,
   ProductResponse,
   ProductOptionInfoResponse,
+  ProductImageResponse,
 } from "../../apis";
 import { resolveProductTypeName } from "@/utils/product/ProductTypeHandler";
 
@@ -166,6 +186,7 @@ export default defineComponent({
   data() {
     return {
       product: {} as ProductResponse,
+      productImages: [] as Array<ProductImageResponse>,
       productOptionInfos: [] as Array<ProductOptionInfoResponse>,
     };
   },
@@ -191,6 +212,15 @@ export default defineComponent({
         console.error("Error fetching product detail:", error);
         this.product = {} as ProductResponse;
       }
+
+      try {
+        const imageResponse = await defaultApi.readProductImages(productId);
+        this.productImages =
+          imageResponse.data.data ?? ([] as ProductImageResponse[]);
+      } catch (error) {
+        console.error("Error fetching product image detail:", error);
+        this.productImages = [] as ProductImageResponse[];
+      }
     },
     getProductTypeName(productType: string) {
       return resolveProductTypeName(productType);
@@ -198,3 +228,16 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.product-image {
+  position: relative;
+}
+.product-image-thumnail-badge {
+  position: absolute;
+  top: 10%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  --bs-bg-opacity: 0.75;
+}
+</style>
