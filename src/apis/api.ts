@@ -119,37 +119,6 @@ export interface ApiResponseListLong {
 /**
  * 
  * @export
- * @interface ApiResponseListProductColorResponse
- */
-export interface ApiResponseListProductColorResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof ApiResponseListProductColorResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiResponseListProductColorResponse
-     */
-    'message': string;
-    /**
-     * 
-     * @type {Array<ProductColorResponse>}
-     * @memberof ApiResponseListProductColorResponse
-     */
-    'data'?: Array<ProductColorResponse>;
-    /**
-     * 
-     * @type {PageResponse}
-     * @memberof ApiResponseListProductColorResponse
-     */
-    'pageResponse'?: PageResponse;
-}
-/**
- * 
- * @export
  * @interface ApiResponseListProductImageResponse
  */
 export interface ApiResponseListProductImageResponse {
@@ -175,37 +144,6 @@ export interface ApiResponseListProductImageResponse {
      * 
      * @type {PageResponse}
      * @memberof ApiResponseListProductImageResponse
-     */
-    'pageResponse'?: PageResponse;
-}
-/**
- * 
- * @export
- * @interface ApiResponseListProductMaterialResponse
- */
-export interface ApiResponseListProductMaterialResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof ApiResponseListProductMaterialResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiResponseListProductMaterialResponse
-     */
-    'message': string;
-    /**
-     * 
-     * @type {Array<ProductMaterialResponse>}
-     * @memberof ApiResponseListProductMaterialResponse
-     */
-    'data'?: Array<ProductMaterialResponse>;
-    /**
-     * 
-     * @type {PageResponse}
-     * @memberof ApiResponseListProductMaterialResponse
      */
     'pageResponse'?: PageResponse;
 }
@@ -349,46 +287,6 @@ export interface PageResponse {
 /**
  * 
  * @export
- * @interface ProductColorResponse
- */
-export interface ProductColorResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductColorResponse
-     */
-    'id': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductColorResponse
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ProductColorResponse
-     */
-    'color': ProductColorResponseColorEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductColorResponse
-     */
-    'additionalPrice': number;
-}
-
-export const ProductColorResponseColorEnum = {
-    Gold: 'GOLD',
-    RoseGold: 'ROSE_GOLD',
-    WhiteGold: 'WHITE_GOLD'
-} as const;
-
-export type ProductColorResponseColorEnum = typeof ProductColorResponseColorEnum[keyof typeof ProductColorResponseColorEnum];
-
-/**
- * 
- * @export
  * @interface ProductDetailResponse
  */
 export interface ProductDetailResponse {
@@ -442,48 +340,6 @@ export interface ProductImageResponse {
      */
     'thumbnail'?: boolean;
 }
-/**
- * 
- * @export
- * @interface ProductMaterialResponse
- */
-export interface ProductMaterialResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductMaterialResponse
-     */
-    'id': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductMaterialResponse
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ProductMaterialResponse
-     */
-    'material': ProductMaterialResponseMaterialEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProductMaterialResponse
-     */
-    'additionalPrice': number;
-}
-
-export const ProductMaterialResponseMaterialEnum = {
-    K10: 'K10',
-    K14: 'K14',
-    K18: 'K18',
-    K22: 'K22',
-    K24: 'K24'
-} as const;
-
-export type ProductMaterialResponseMaterialEnum = typeof ProductMaterialResponseMaterialEnum[keyof typeof ProductMaterialResponseMaterialEnum];
-
 /**
  * 
  * @export
@@ -767,59 +623,6 @@ export type UpdateProductRequestProductTypeEnum = typeof UpdateProductRequestPro
 /**
  * 
  * @export
- * @interface UpsertProductColorInternalRequest
- */
-export interface UpsertProductColorInternalRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpsertProductColorInternalRequest
-     */
-    'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpsertProductColorInternalRequest
-     */
-    'color': UpsertProductColorInternalRequestColorEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpsertProductColorInternalRequest
-     */
-    'additionalPrice': number;
-}
-
-export const UpsertProductColorInternalRequestColorEnum = {
-    Gold: 'GOLD',
-    RoseGold: 'ROSE_GOLD',
-    WhiteGold: 'WHITE_GOLD'
-} as const;
-
-export type UpsertProductColorInternalRequestColorEnum = typeof UpsertProductColorInternalRequestColorEnum[keyof typeof UpsertProductColorInternalRequestColorEnum];
-
-/**
- * 
- * @export
- * @interface UpsertProductColorRequest
- */
-export interface UpsertProductColorRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpsertProductColorRequest
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {Array<UpsertProductColorInternalRequest>}
-     * @memberof UpsertProductColorRequest
-     */
-    'upsertProductColorInternalRequests': Array<UpsertProductColorInternalRequest>;
-}
-/**
- * 
- * @export
  * @interface UpsertProductImageInternalRequest
  */
 export interface UpsertProductImageInternalRequest {
@@ -860,61 +663,6 @@ export interface UpsertProductImageRequest {
      * @memberof UpsertProductImageRequest
      */
     'upsertProductImageInternalRequests': Array<UpsertProductImageInternalRequest>;
-}
-/**
- * 
- * @export
- * @interface UpsertProductMaterialInternalRequest
- */
-export interface UpsertProductMaterialInternalRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpsertProductMaterialInternalRequest
-     */
-    'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpsertProductMaterialInternalRequest
-     */
-    'material': UpsertProductMaterialInternalRequestMaterialEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpsertProductMaterialInternalRequest
-     */
-    'additionalPrice': number;
-}
-
-export const UpsertProductMaterialInternalRequestMaterialEnum = {
-    K10: 'K10',
-    K14: 'K14',
-    K18: 'K18',
-    K22: 'K22',
-    K24: 'K24'
-} as const;
-
-export type UpsertProductMaterialInternalRequestMaterialEnum = typeof UpsertProductMaterialInternalRequestMaterialEnum[keyof typeof UpsertProductMaterialInternalRequestMaterialEnum];
-
-/**
- * 
- * @export
- * @interface UpsertProductMaterialRequest
- */
-export interface UpsertProductMaterialRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpsertProductMaterialRequest
-     */
-    'productId': number;
-    /**
-     * 
-     * @type {Array<UpsertProductMaterialInternalRequest>}
-     * @memberof UpsertProductMaterialRequest
-     */
-    'upsertProductMaterialInternalRequest': Array<UpsertProductMaterialInternalRequest>;
 }
 /**
  * 
@@ -1031,46 +779,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readProductColors: async (productId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'productId' is not null or undefined
-            assertParamExists('readProductColors', 'productId', productId)
-            const localVarPath = `/admin/api/v1/products/colors`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (productId !== undefined) {
-                localVarQueryParameter['productId'] = productId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} productId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
         readProductDetail: async (productId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'productId' is not null or undefined
             assertParamExists('readProductDetail', 'productId', productId)
@@ -1115,46 +823,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // verify required parameter 'productId' is not null or undefined
             assertParamExists('readProductImages', 'productId', productId)
             const localVarPath = `/admin/api/v1/products/images`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (productId !== undefined) {
-                localVarQueryParameter['productId'] = productId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} productId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        readProductMaterials: async (productId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'productId' is not null or undefined
-            assertParamExists('readProductMaterials', 'productId', productId)
-            const localVarPath = `/admin/api/v1/products/materials`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1313,45 +981,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {UpsertProductColorRequest} upsertProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertProductColors: async (upsertProductColorRequest: UpsertProductColorRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'upsertProductColorRequest' is not null or undefined
-            assertParamExists('upsertProductColors', 'upsertProductColorRequest', upsertProductColorRequest)
-            const localVarPath = `/admin/api/v1/products/colors`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(upsertProductColorRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {UpsertProductImageRequest} upsertProductImageRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1367,7 +996,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -1383,45 +1012,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(upsertProductImageRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertProductMaterials: async (upsertProductMaterialRequest: UpsertProductMaterialRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'upsertProductMaterialRequest' is not null or undefined
-            assertParamExists('upsertProductMaterials', 'upsertProductMaterialRequest', upsertProductMaterialRequest)
-            const localVarPath = `/admin/api/v1/products/materials`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Authorization required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(upsertProductMaterialRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1494,18 +1084,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async readProductColors(productId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListProductColorResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.readProductColors(productId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.readProductColors']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {number} productId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
         async readProductDetail(productId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseProductDetailResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.readProductDetail(productId, options);
             const index = configuration?.serverIndex ?? 0;
@@ -1522,18 +1100,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.readProductImages(productId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['DefaultApi.readProductImages']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {number} productId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async readProductMaterials(productId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListProductMaterialResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.readProductMaterials(productId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.readProductMaterials']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1576,18 +1142,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {UpsertProductColorRequest} upsertProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async upsertProductColors(upsertProductColorRequest: UpsertProductColorRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductColors(upsertProductColorRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.upsertProductColors']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
          * @param {UpsertProductImageRequest} upsertProductImageRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1596,18 +1150,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductImages(upsertProductImageRequest, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['DefaultApi.upsertProductImages']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async upsertProductMaterials(upsertProductMaterialRequest: UpsertProductMaterialRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponseListLong>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertProductMaterials(upsertProductMaterialRequest, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.upsertProductMaterials']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1646,15 +1188,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readProductColors(productId: number, options?: any): AxiosPromise<ApiResponseListProductColorResponse> {
-            return localVarFp.readProductColors(productId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} productId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
         readProductDetail(productId: number, options?: any): AxiosPromise<ApiResponseProductDetailResponse> {
             return localVarFp.readProductDetail(productId, options).then((request) => request(axios, basePath));
         },
@@ -1666,15 +1199,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         readProductImages(productId: number, options?: any): AxiosPromise<ApiResponseListProductImageResponse> {
             return localVarFp.readProductImages(productId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} productId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        readProductMaterials(productId: number, options?: any): AxiosPromise<ApiResponseListProductMaterialResponse> {
-            return localVarFp.readProductMaterials(productId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1707,30 +1231,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {UpsertProductColorRequest} upsertProductColorRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertProductColors(upsertProductColorRequest: UpsertProductColorRequest, options?: any): AxiosPromise<ApiResponseListLong> {
-            return localVarFp.upsertProductColors(upsertProductColorRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {UpsertProductImageRequest} upsertProductImageRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         upsertProductImages(upsertProductImageRequest: UpsertProductImageRequest, options?: any): AxiosPromise<ApiResponseListLong> {
             return localVarFp.upsertProductImages(upsertProductImageRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertProductMaterials(upsertProductMaterialRequest: UpsertProductMaterialRequest, options?: any): AxiosPromise<ApiResponseListLong> {
-            return localVarFp.upsertProductMaterials(upsertProductMaterialRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1768,17 +1274,6 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public readProductColors(productId: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).readProductColors(productId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} productId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
     public readProductDetail(productId: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).readProductDetail(productId, options).then((request) => request(this.axios, this.basePath));
     }
@@ -1792,17 +1287,6 @@ export class DefaultApi extends BaseAPI {
      */
     public readProductImages(productId: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).readProductImages(productId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} productId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public readProductMaterials(productId: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).readProductMaterials(productId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1842,17 +1326,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @param {UpsertProductColorRequest} upsertProductColorRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public upsertProductColors(upsertProductColorRequest: UpsertProductColorRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).upsertProductColors(upsertProductColorRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {UpsertProductImageRequest} upsertProductImageRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1860,17 +1333,6 @@ export class DefaultApi extends BaseAPI {
      */
     public upsertProductImages(upsertProductImageRequest: UpsertProductImageRequest, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).upsertProductImages(upsertProductImageRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {UpsertProductMaterialRequest} upsertProductMaterialRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public upsertProductMaterials(upsertProductMaterialRequest: UpsertProductMaterialRequest, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).upsertProductMaterials(upsertProductMaterialRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
