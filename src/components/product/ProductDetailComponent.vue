@@ -80,20 +80,6 @@
       />
     </div>
 
-    <!-- <div class="mb-3">
-      <div class="mt-3">상품 이미지</div>
-      <ul class="list-group list-group-horizontal">
-        <img
-          v-for="image in product.images"
-          :key="image.imageUrl"
-          :src="image.imageUrl"
-          width="200"
-          height="200"
-          class="rounded ml-1"
-        />
-      </ul>
-    </div> -->
-
     <div class="mb-3">
       <div class="d-flex justify-content-between align-items-center">
         <div>상품 이미지</div>
