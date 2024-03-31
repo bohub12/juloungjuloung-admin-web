@@ -93,7 +93,7 @@
       <DisplayOffComponent />
     </template>
     <div class="vr no-padding"></div>
-    <div class="col">{{ product.productType }}</div>
+    <div class="col">{{ getProductTypeName(product.productType) }}</div>
     <div class="vr no-padding"></div>
     <div class="col">{{ product.productCode }}</div>
     <div class="vr no-padding"></div>
@@ -139,6 +139,7 @@ import { mapGetters } from "vuex";
 import { DefaultApiFactory } from "../apis";
 import DisplayOffComponent from "@/components/product/DisplayOffComponent.vue";
 import DisplayOnComponent from "@/components/product/DisplayOnComponent.vue";
+import { resolveProductTypeName } from "@/utils/product/ProductTypeHandler";
 
 const defaultApi = DefaultApiFactory();
 
@@ -168,6 +169,10 @@ export default defineComponent({
         (category) => category.value === this.currentProductCategory
       );
       return foundCategory ? foundCategory.name : "All";
+    },
+
+    getProductTypeName(productType) {
+      return resolveProductTypeName(productType);
     },
 
     setProductCategory(newProductCategory) {

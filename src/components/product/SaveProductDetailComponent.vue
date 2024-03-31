@@ -15,23 +15,18 @@
 
       <div class="mb-3">
         <label for="productType" class="form-label">상품 타입</label>
-        <!-- <input
-          type="text"
-          class="form-control"
-          id="productType"
-          v-model="product.productType"
-        /> -->
         <select
           class="form-select"
           id="productType"
-          aria-label="Default select example"
           v-model="product.productType"
+          required
         >
           <option
             v-for="productType in availableProductTypes"
-            :key="productType"
+            :key="productType.value"
+            :value="productType.value"
           >
-            {{ productType }}
+            {{ productType.name }}
           </option>
         </select>
       </div>
@@ -180,10 +175,10 @@
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
+import { mapGetters } from "vuex";
 import {
   DefaultApiFactory,
   SaveProductRequest,
-  SaveProductRequestProductTypeEnum,
   UpsertProductImageRequest,
   UpsertProductOptionRequest,
 } from "../../apis";
@@ -195,12 +190,6 @@ export default defineComponent({
   data() {
     return {
       savedProductId: 0 as number,
-      availableProductTypes: [
-        SaveProductRequestProductTypeEnum.Bracelet,
-        SaveProductRequestProductTypeEnum.Earring,
-        SaveProductRequestProductTypeEnum.Necklace,
-        SaveProductRequestProductTypeEnum.Ring,
-      ] as Array<SaveProductRequestProductTypeEnum>,
       product: {} as SaveProductRequest,
       productImages: {} as UpsertProductImageRequest,
       productImageFiles: [] as Array<File>,
@@ -210,6 +199,11 @@ export default defineComponent({
   mounted() {
     const store = useStore();
     store.commit("menu/setMenu", "product");
+  },
+  computed: {
+    ...mapGetters({
+      availableProductTypes: "productCategory/productCategories",
+    }),
   },
   methods: {
     async handleSubmit() {
@@ -364,6 +358,11 @@ export default defineComponent({
         }
       );
     },
+    // changeProductType(selectedProductType: string) {
+    //   this.product.productType =
+    //     // eslint-disable-next-line
+    //     resolveSaveProductRequestProductType(selectedProductType)!;
+    // },
   },
 });
 </script>
