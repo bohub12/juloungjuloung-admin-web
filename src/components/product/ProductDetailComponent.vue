@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-3">Product Detail {{ productId }}</h1>
+    <h1 class="mb-3">Product Detail</h1>
     <div class="mb-3">
       <label for="productName" class="form-label">상품 이름</label>
       <input
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="productType" class="form-label">상품 타입</label>
       <input
         type="text"
@@ -37,6 +37,25 @@
         disabled
         readonly
       />
+    </div> -->
+
+    <div class="mb-3">
+      <label for="productType" class="form-label">상품 타입</label>
+      <select
+        class="form-select"
+        id="productType"
+        v-model="product.productType"
+        disabled
+      >
+        <option
+          v-for="productType in availableProductTypes"
+          :key="productType.value"
+          :value="productType.value"
+          :selected="product.productType == productType.value"
+        >
+          {{ productType.name }}
+        </option>
+      </select>
     </div>
 
     <div class="mb-3">
@@ -63,7 +82,7 @@
       />
     </div>
     <div class="mb-3">
-      <label for="productWeight" class="form-label">상품 무게(g)</label>
+      <label for="productWeight" class="form-label">상품 무게(mg)</label>
       <input
         type="text"
         class="form-control"
@@ -127,12 +146,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useStore } from "vuex";
+import { useStore, mapGetters } from "vuex";
 import {
   DefaultApiFactory,
   ProductResponse,
   ProductOptionInfoResponse,
 } from "../../apis";
+import { resolveProductTypeName } from "@/utils/product/ProductTypeHandler";
 
 const defaultApi = DefaultApiFactory();
 
@@ -148,6 +168,11 @@ export default defineComponent({
       product: {} as ProductResponse,
       productOptionInfos: [] as Array<ProductOptionInfoResponse>,
     };
+  },
+  computed: {
+    ...mapGetters({
+      availableProductTypes: "productCategory/productCategories",
+    }),
   },
   mounted() {
     const store = useStore();
@@ -166,6 +191,9 @@ export default defineComponent({
         console.error("Error fetching product detail:", error);
         this.product = {} as ProductResponse;
       }
+    },
+    getProductTypeName(productType: string) {
+      return resolveProductTypeName(productType);
     },
   },
 });

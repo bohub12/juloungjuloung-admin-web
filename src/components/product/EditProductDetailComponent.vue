@@ -165,7 +165,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "ProductDetailComponent",
+  name: "EditProductDetailComponent",
   props: {
     id: {
       type: BigInt,

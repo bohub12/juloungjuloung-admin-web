@@ -3,6 +3,13 @@
     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
   >
     <h2>상품</h2>
+    <button
+      type="button"
+      class="btn btn-primary"
+      @click="moveToSaveProductDetailComponent"
+    >
+      상품 추가하기
+    </button>
   </div>
 
   <div class="row">
@@ -86,7 +93,7 @@
       <DisplayOffComponent />
     </template>
     <div class="vr no-padding"></div>
-    <div class="col">{{ product.productType }}</div>
+    <div class="col">{{ getProductTypeName(product.productType) }}</div>
     <div class="vr no-padding"></div>
     <div class="col">{{ product.productCode }}</div>
     <div class="vr no-padding"></div>
@@ -132,6 +139,7 @@ import { mapGetters } from "vuex";
 import { DefaultApiFactory } from "../apis";
 import DisplayOffComponent from "@/components/product/DisplayOffComponent.vue";
 import DisplayOnComponent from "@/components/product/DisplayOnComponent.vue";
+import { resolveProductTypeName } from "@/utils/product/ProductTypeHandler";
 
 const defaultApi = DefaultApiFactory();
 
@@ -163,6 +171,10 @@ export default defineComponent({
       return foundCategory ? foundCategory.name : "All";
     },
 
+    getProductTypeName(productType) {
+      return resolveProductTypeName(productType);
+    },
+
     setProductCategory(newProductCategory) {
       this.$store.commit(
         "productCategory/setProductCategory",
@@ -176,6 +188,11 @@ export default defineComponent({
       this.$router.push({
         name: "productDetail",
         params: { productId: productId },
+      });
+    },
+    moveToSaveProductDetailComponent() {
+      this.$router.push({
+        name: "saveProductDetail",
       });
     },
 
