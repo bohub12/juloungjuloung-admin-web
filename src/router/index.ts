@@ -30,9 +30,10 @@ const routes: Array<RouteRecordRaw> = [
         component: SaveProductDetailComponent,
       },
       {
-        path: "/product/edit",
+        path: "/product/edit/:productId",
         name: "editProductDetail",
         component: EditProductDetailComponent,
+        props: true,
       },
       {
         path: "/product/:productId",

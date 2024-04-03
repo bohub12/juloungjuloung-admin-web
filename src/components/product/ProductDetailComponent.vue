@@ -1,6 +1,13 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-3">Product Detail</h1>
+    <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+    >
+      <h1 class="mb-3">Product Detail</h1>
+      <button class="btn btn-primary" @click="moveToEditProductDetailComponent">
+        수정하기
+      </button>
+    </div>
     <div class="mb-3">
       <label for="productName" class="form-label">상품 이름</label>
       <input
@@ -210,6 +217,13 @@ export default defineComponent({
     },
     getProductTypeName(productType: string) {
       return resolveProductTypeName(productType);
+    },
+    moveToEditProductDetailComponent() {
+      const productId = this.productId as number;
+      this.$router.push({
+        name: "editProductDetail",
+        params: { productId: productId },
+      });
     },
   },
 });
