@@ -220,11 +220,10 @@ export default defineComponent({
     };
   },
   mounted() {
-    console.log("mounted");
     const store = useStore();
     store.commit("menu/setMenu", "product");
 
-    this.product.id = this.productId!;
+    this.product.id = this.productId as number;
     this.getProductDetailInfosFromServer();
   },
   computed: {
@@ -304,7 +303,7 @@ export default defineComponent({
     convertProductImagesResponse(
       productImagesResponse: Array<ProductImageResponse>
     ) {
-      this.productImages.productId = this.productId!;
+      this.productImages.productId = this.productId as number;
       this.productImages.upsertProductImageInternalRequests = [];
 
       for (const productImageResponse of productImagesResponse) {
@@ -325,6 +324,7 @@ export default defineComponent({
         await this.updateApiCalls();
       } catch (error) {
         if (error instanceof AxiosError) {
+          // eslint-disable-next-line
           alert(error.response!.data.message);
           return;
         }
@@ -341,9 +341,7 @@ export default defineComponent({
     },
     async updateApiCalls() {
       // update product images
-      const imageResponse = await defaultApi.upsertProductImages(
-        this.productImages
-      );
+      await defaultApi.upsertProductImages(this.productImages);
 
       // update product image request
       await this.updateProductImageRequest();
