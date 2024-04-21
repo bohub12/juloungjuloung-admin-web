@@ -243,6 +243,7 @@ export default defineComponent({
       const productId = this.productId as number;
       try {
         const response = await defaultApi.readProductDetail(productId);
+
         const productResponse =
           response.data.data?.product ?? ({} as ProductResponse);
         const productOptionInfosResponse =
