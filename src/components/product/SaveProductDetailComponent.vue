@@ -95,6 +95,13 @@
             >
               대표 이미지</span
             >
+            <button
+              type="button"
+              class="product-image-delete-button btn btn-outline-danger"
+              @click="deleteProductImage(index)"
+            >
+              <i class="bi bi-trash3"></i>
+            </button>
           </div>
         </ul>
       </div>
@@ -357,11 +364,12 @@ export default defineComponent({
         }
       );
     },
-    // changeProductType(selectedProductType: string) {
-    //   this.product.productType =
-    //     // eslint-disable-next-line
-    //     resolveSaveProductRequestProductType(selectedProductType)!;
-    // },
+    deleteProductImage(productImageIndex: number) {
+      this.productImages.upsertProductImageInternalRequests.splice(
+        productImageIndex,
+        1
+      );
+    },
   },
 });
 </script>
@@ -389,5 +397,11 @@ input[type="file"] {
   left: 75%;
   transform: translate(-50%, -50%);
   --bs-bg-opacity: 0.75;
+}
+.product-image-delete-button {
+  position: absolute;
+  top: 85%;
+  left: 85%;
+  transform: translate(-50%, -50%);
 }
 </style>
