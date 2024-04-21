@@ -181,13 +181,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore, mapGetters } from "vuex";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import {
   DefaultApiFactory,
   SaveProductRequest,
   UpsertProductImageRequest,
   UpsertProductOptionRequest,
-} from "../../apis";
+  ProductImageResponse,
+  ProductOptionInfoResponse,
+  UpsertProductOptionInternalRequest,
+} from "@/apis";
 
 const defaultApi = DefaultApiFactory();
 
@@ -213,65 +216,82 @@ export default defineComponent({
   },
   methods: {
     async handleSubmit() {
-      // TODO :  validation - 서버에서 진행할 수 있도록 BFF 패턴으로 전환할 예정 (우선은 프론트에서 validation 해줌)
-      if (!this.isValidSaveRequest()) {
-        alert(
-          "잘못된 입력값입니다. 다시 확인해주세요. (상품가격: 0이상, 상품무게: 0이상, 옵션카테고리 하위 옵션없이 저장 불가)"
-        );
-        return;
-      }
-
       const result = confirm("저장하시겠습니까?");
       if (!result) {
         return;
       }
 
-      await this.saveProduct();
-
-      // update request (productId)
-      this.productImages.productId = this.savedProductId;
-      this.productOptionInfos.forEach((value) => {
-        value.productId = this.savedProductId;
-      });
-
-      this.saveProductImages();
-      this.saveProductOptionInfos();
+      try {
+        await this.callSaveApis();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          // eslint-disable-next-line
+          alert(error.response!.data.message);
+          return;
+        }
+        alert(
+          "상품 저장 중에 문제가 있었습니다. 개발팀으로 문의주시기 바랍니다."
+        );
+        return;
+      }
 
       // routing to product page
       this.$router.push({
         name: "product",
       });
     },
-    isValidSaveRequest() {
-      if (this.product.price < 0 || this.product.weightByMilliGram < 0) {
-        return false;
+    async callSaveApis() {
+      // save product
+      if (this.savedProductId == 0) {
+        await this.saveProduct();
       }
 
-      for (const optionInfo of this.productOptionInfos) {
-        if (optionInfo.options.length == 0) {
-          return false;
+      // update request (saved productId)
+      this.productImages.productId = this.savedProductId;
+      this.productOptionInfos.forEach((value) => {
+        value.productId = this.savedProductId;
+      });
+
+      if (this.productImages.upsertProductImageInternalRequests == null) {
+        this.productImages.upsertProductImageInternalRequests = [];
+      }
+
+      await defaultApi.upsertProductImages(this.productImages);
+      await this.updateProductImageRequest();
+
+      for (const productOptionInfo of this.productOptionInfos) {
+        if (productOptionInfo.options == null) {
+          productOptionInfo.options = [];
         }
+        await defaultApi.upsertProductOptions(productOptionInfo);
       }
-
-      return true;
+      await this.updateProductOptionRequest();
     },
+
+    async updateProductImageRequest() {
+      const productId = this.savedProductId as number;
+      const response = await defaultApi.readProductImages(productId);
+      const productImagesResponse =
+        response.data.data ?? ([] as Array<ProductImageResponse>);
+
+      this.convertProductImagesResponse(productImagesResponse);
+    },
+
+    async updateProductOptionRequest() {
+      const productId = this.savedProductId as number;
+      const response = await defaultApi.readProductDetail(productId);
+      const productOptionInfosResponse =
+        response.data.data?.productOptionInfos ??
+        ([] as Array<ProductOptionInfoResponse>);
+
+      this.convertProductOptionInfosResponse(productOptionInfosResponse);
+    },
+
     async saveProduct() {
       const response = await defaultApi.saveProduct(this.product);
 
       // eslint-disable-next-line
       this.savedProductId = response.data.data!;
-    },
-    async saveProductImages() {
-      try {
-        const response = await defaultApi.upsertProductImages(
-          this.productImages
-        );
-        if (response.data.code != 200) {
-          console.error("fail to saving product images to DB");
-        }
-      } catch (error) {
-        console.error(error);
-      }
     },
     async imageFileUpload(event: Event) {
       const input = event.target as HTMLInputElement;
@@ -286,7 +306,10 @@ export default defineComponent({
 
         await this.uploadImageToS3(preSignedUrl, file);
 
-        if (!this.productImages.upsertProductImageInternalRequests) {
+        if (
+          !this.productImages.upsertProductImageInternalRequests ||
+          this.productImages.upsertProductImageInternalRequests.length == 0
+        ) {
           this.productImages.upsertProductImageInternalRequests = [
             {
               id: 0,
@@ -313,23 +336,50 @@ export default defineComponent({
         })
         .catch((error) => console.error(error));
     },
+    convertProductImagesResponse(
+      productImagesResponse: Array<ProductImageResponse>
+    ) {
+      this.productImages.productId = this.savedProductId as number;
+      this.productImages.upsertProductImageInternalRequests = [];
 
-    async saveProductOptionInfos() {
-      try {
-        this.productOptionInfos.forEach(async function (productOptionInfo) {
-          const resposne = await defaultApi.upsertProductOptions(
-            productOptionInfo
-          );
-
-          if (resposne.data.code != 200) {
-            console.error("fail to saving product option");
-          }
+      for (const productImageResponse of productImagesResponse) {
+        this.productImages.upsertProductImageInternalRequests.push({
+          id: productImageResponse.id,
+          imageUrl: productImageResponse.imageUrl,
+          isThumbnail: productImageResponse.isThumbnail,
         });
-      } catch (error) {
-        console.error(error);
       }
     },
+    convertProductOptionInfosResponse(
+      productOptionInfosResponse: Array<ProductOptionInfoResponse>
+    ) {
+      this.productOptionInfos = new Array<UpsertProductOptionRequest>();
 
+      for (const productOptionInfoResponse of productOptionInfosResponse) {
+        const upsertProductOptionRequest: UpsertProductOptionRequest = {
+          productId: productOptionInfoResponse.optionCategory.productId,
+          optionCategory: {
+            id: productOptionInfoResponse.optionCategory.id,
+            name: productOptionInfoResponse.optionCategory.name,
+          },
+          options: [],
+        };
+
+        for (const productOptionResponse of productOptionInfoResponse.options) {
+          const upsertProductOptionInternalRequest: UpsertProductOptionInternalRequest =
+            {
+              id: productOptionResponse.id,
+              name: productOptionResponse.name,
+              additionalPrice: productOptionResponse.additionalPrice,
+            };
+          upsertProductOptionRequest.options.push(
+            upsertProductOptionInternalRequest
+          );
+        }
+
+        this.productOptionInfos.push(upsertProductOptionRequest);
+      }
+    },
     addOptionCategory() {
       this.productOptionInfos.push({
         productId: 0,
